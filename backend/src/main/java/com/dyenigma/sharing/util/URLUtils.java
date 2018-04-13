@@ -14,11 +14,7 @@ public class URLUtils extends org.springframework.web.util.UriUtils {
     private URLUtils() {
     }
 
-    public static String encodeURL(String source, String encoding) {
-        try {
-            return URLUtils.encode(source, encoding);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
+    public static String encodeURL(String source, String encoding) throws UnsupportedEncodingException {
+        return URLUtils.encode(source, encoding);
     }
 }

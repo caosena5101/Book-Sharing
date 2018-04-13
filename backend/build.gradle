@@ -77,6 +77,7 @@ dependencies {
             "org.pac4j:pac4j-cas:${pac4jCasVersion}",
             "io.buji:buji-pac4j:${bujiPacVersion}",
             "org.apache.poi:poi:${poiVersion}",
+            "org.projectlombok:lombok",
             fileTree(dir: 'lib', include: '*.jar')
     )
 
@@ -84,7 +85,6 @@ dependencies {
             "org.springframework.boot:spring-boot-devtools",
             "mysql:mysql-connector-java"
     )
-    compileOnly('org.projectlombok:lombok')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
