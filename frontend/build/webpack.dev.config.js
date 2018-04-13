@@ -7,9 +7,10 @@ const webpackBaseConfig = require('./webpack.base.config.js');
 const fs = require('fs');
 const package = require('../package.json');
 
-fs.open('./env.js', 'w', function(err, fd) {
+fs.open('./build/env.js', 'w', function (err, fd) {
     const buf = 'export default "development";';
-    fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
+    fs.write(fd, buf, 0, buf.length, 0, function (err, written, buffer) {
+    });
 });
 
 module.exports = merge(webpackBaseConfig, {
@@ -31,8 +32,25 @@ module.exports = merge(webpackBaseConfig, {
         new HtmlWebpackPlugin({
             title: 'iView admin v' + package.version,
             filename: '../index.html',
-            template: './src/template/index.ejs',
             inject: false
+        }),
+        new CopyWebpackPlugin([{
+            from: 'src/views/main-components/theme-switch/theme'
+        }, {
+            from: 'src/views/my-components/text-editor/tinymce'
+        }], {
+            ignore: [
+                'text-editor.vue'
+            ]
         })
-    ]
+    ],
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://127.0.0.1:8181/',
+                pathRewrite: {'^/api': ''},
+                changeOrigin: true
+            }
+        }
+    }
 });
