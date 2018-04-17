@@ -20,6 +20,7 @@ group = 'com.dyenigma'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+
 repositories {
     maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
     maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
@@ -36,7 +37,7 @@ ext {
     druidVersion = '1.1.9'
     pageHelperVersion = '1.2.3'
     guavaVersion = '23.0'
-    mybatisMapperVersion = '3.5.3'
+    mybatisMapperVersion = '4.0.0'
     poiVersion = '3.17'
     quartzVersion = '2.3.0'
     log4j2slf4jVersion = '2.8.2'
@@ -62,7 +63,6 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-cache",
             "org.springframework.boot:spring-boot-starter-websocket",
             "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisBootVersion}",
-            "com.github.pagehelper:pagehelper-spring-boot-starter:${pageHelperVersion}",
             "org.apache.logging.log4j:log4j-to-slf4j:${log4j2slf4jVersion}",
             "org.apache.commons:commons-lang3:${apacheLangVersion}",
             "com.alibaba:druid-spring-boot-starter:${druidVersion}",
@@ -71,7 +71,6 @@ dependencies {
             "org.apache.shiro:shiro-ehcache:${shiroVersion}",
             "org.apache.shiro:shiro-spring:${shiroVersion}",
             "org.quartz-scheduler:quartz:${quartzVersion}",
-            "tk.mybatis:mapper:${mybatisMapperVersion}",
             "com.alibaba:fastjson:${fastjsonVersion}",
             "com.google.guava:guava:${guavaVersion}",
             "org.pac4j:pac4j-cas:${pac4jCasVersion}",

@@ -1,6 +1,8 @@
 package com.dyenigma.sharing.service;
 
 import com.dyenigma.SharingApplicationTests;
+import com.dyenigma.sharing.entity.SysUser;
+import com.dyenigma.sharing.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ public class SysUserServiceTest extends SharingApplicationTests {
     private SysUserService sysUserService;
 
     @Test
-    public void authLoginTest() {
-        String account = "dyenigma";
-        String password = "admin";
-        sysUserService.authLogin(account, password);
-        log.info("用户登录获取数据测试成功");
+    public void insertTest() {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId(StringUtil.getUUID());
+        sysUser.setAccount("admin");
+        sysUser.setPassword(StringUtil.encryptPassword("admin", "admin"));
+        sysUser.setStatus("E");
+        sysUserService.insert(sysUser);
     }
 }

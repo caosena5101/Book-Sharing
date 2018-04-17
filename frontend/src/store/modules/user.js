@@ -1,9 +1,13 @@
 import Cookies from 'js-cookie';
+import axios from 'axios'
 
 const user = {
     state: {},
     mutations: {
         logout (state, vm) {
+
+            let that = this;
+
             Cookies.remove('user');
             Cookies.remove('password');
             Cookies.remove('access');
@@ -19,6 +23,12 @@ const user = {
             if (theme) {
                 localStorage.theme = theme;
             }
+
+            let urlStr = '/api/logout';
+
+            axios.post(urlStr).catch(function (error) {
+                that.$Message.warning('请求出错');
+            });
         }
     }
 };

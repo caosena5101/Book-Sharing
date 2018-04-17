@@ -1,5 +1,16 @@
 ##处理流程说明
-###登录验证流程
+###登录验证设置
+- 在securityManager中设定自定义realm：setRealm(userRealm());
+- 在自定义realm中设定验证规则：setCredentialsMatcher(hashedCredentialsMatcher());
+- hashedCredentialsMatcher中设定密码加密方式
+###登录验证处理流程
+- 在Controller中通过Security.getSubject()获取当前的Subject； 
+- 通过Subject的isAuthenticated()验证当前用户是否已经被认证； 
+- 如果没有被认证，开始认证。 
+- 将从前台传来的用户名（邮箱）和密码封装到一个UsernamePasswordToken对象upToken中； 
+- 调用当前Subject的login(upToken)方法，这会把upToken作为参数传递到自定义的Realm的doGetAuthenticationInfo(AuthenticationToken)方法中； 
+- 在doGetAuthenticationInfo(AuthenticationToken)方法中，首先将AuthenticationToken转换为UsernamePasswordToken对象upToken，然后调用Service层，根据upToken中的用户名到数据库中查询密码； 
+-  由shiro完成密码的比对。密码的比对是通过AuthenticatingRealm的credentialsMatcher属性来进行比对的。
 ###分页流程
 ###权限流程
 

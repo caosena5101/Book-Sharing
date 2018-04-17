@@ -26,28 +26,25 @@ public class StringUtil {
     }
 
     /**
-     * @param pwd
-     * @param name
+     * 根据用户名和密码进行两次MD5加密
+     *
+     * @param pwd  原始密码
+     * @param salt 盐
      * @return java.lang.String
-     * @Description: 根据用户名和密码进行两次MD5加密
      * @author dingdongliang
-     * @date 2018/4/10 14:04
+     * @date 2018/4/17 8:42
      */
-    public static String encryptPassword(String pwd, String name) {
-        return new SimpleHash(SystemConstant.ALGORITHMNAME, pwd, ByteSource.Util.bytes(name),
+    public static String encryptPassword(String pwd, String salt) {
+        return new SimpleHash(SystemConstant.ALGORITHMNAME, pwd, ByteSource.Util.bytes(salt),
                 SystemConstant.HASHITERATIONS).toHex();
     }
 
-    public static void main(String[] args) {
-        System.out.println(encryptPassword("admin","dyenigma"));
-    }
-
     /**
-     * @param
+     * 获取一个32位UUID主键
+     *
      * @return java.lang.String
-     * @Description: 生成一个主键
      * @author dingdongliang
-     * @date 2018/3/28 17:04
+     * @date 2018/4/17 8:41
      */
     public static String getUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");

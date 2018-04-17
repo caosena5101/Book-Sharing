@@ -1,11 +1,9 @@
 package com.dyenigma.sharing.shiro;
 
+import com.dyenigma.sharing.constant.ErrorConstant;
 import com.dyenigma.sharing.constant.SystemConstant;
-import com.dyenigma.sharing.entity.SysPermission;
 import com.dyenigma.sharing.entity.SysUser;
-import com.dyenigma.sharing.service.SysPermissionService;
 import com.dyenigma.sharing.service.SysUserService;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,24 +12,20 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * backend/com.dyenigma.sharing.shiro
  *
- * @Description : 自定义realm
+ * @Description : 使用自定义realm进行授权，需要继承AuthorizingRealm
  * @Author : dingdongliang
  * @Date : 2018/4/3 8:30
  */
@@ -39,10 +33,8 @@ import java.util.Set;
 @Component
 public class ShiroRealm extends AuthorizingRealm {
 
-    @Resource
+    @Autowired
     private SysUserService sysUserService;
-    @Resource
-    private SysPermissionService sysPermissionService;
 
     public ShiroRealm() {
         super();
@@ -57,28 +49,7 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-
-        Session session = SecurityUtils.getSubject().getSession();
-        @NonNull List<SysPermission> permissionList = (List<SysPermission>) session.getAttribute(SystemConstant
-                .SESSION_USER_PERMISSION);
-
-        log.info("permission的值为:" + permissionList);
-
-        Set<String> permissionSet;
-
-        if (permissionList == null) {
-            SysUser user = (SysUser) principals.getPrimaryPrincipal();
-            String userId = user.getUserId();
-
-            //重新获取用户权限列表
-            permissionList = sysPermissionService.getPermissions(userId);
-        }
-
-        permissionSet = new HashSet(permissionList);
-
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setStringPermissions(permissionSet);
-        return authorizationInfo;
+        return null;
     }
 
 
@@ -92,71 +63,68 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws
             AuthenticationException {
-        String username = (String) authcToken.getPrincipal();
-        String password = new String((char[]) authcToken.getCredentials());
 
-        SysUser sysUser = sysUserService.userCertified(username);
+        UsernamePasswordToken upToken = (UsernamePasswordToken) authcToken;
+
+        String account = upToken.getUsername();
+
+        SysUser sysUser = sysUserService.userCertified(account);
 
         if (sysUser == null) {
-            throw new UnknownAccountException("用户名不存在");
+            throw new UnknownAccountException(ErrorConstant.NO_ACCOUNT);
         }
 
-        //账号禁用
         if (SystemConstant.INVALID.equals(sysUser.getStatus())) {
-            throw new LockedAccountException("用户已被禁用,请联系管理员");
+            throw new LockedAccountException(ErrorConstant.ACCOUNT_LOCKED);
         }
 
-        List<SysPermission> sysPermissionList = sysPermissionService.getPermissions(sysUser.getUserId());
+        Object principal = account;
+        Object credentials = sysUser.getPassword();
 
-        if (sysPermissionList != null) {
-            sysUser.setPermissions(new HashSet(sysPermissionList));
-        }
+        ByteSource salt = ByteSource.Util.bytes(account);
 
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                sysUser, password, getName());
-        //将用户信息放入session中
+                principal, credentials, salt, getName());
+
         SecurityUtils.getSubject().getSession().setAttribute(SystemConstant.SESSION_USER_INFO, sysUser);
         return authenticationInfo;
     }
 
 
+    /**
+     * 用户退出时，清空所有的用户缓存
+     *
+     * @param principals
+     * @return void
+     * @author dingdongliang
+     * @date 2018/4/17 17:50
+     */
     @Override
     public void onLogout(PrincipalCollection principals) {
         super.clearCachedAuthorizationInfo(principals);
-        SysUser shiroUser = (SysUser) principals.getPrimaryPrincipal();
-        clearCachedAuthorizationInfo(shiroUser);
+        clearAllCachedAuthorizationInfo();
     }
 
+
     /**
-     * @param user
+     * 更新用户授权信息缓存.
+     *
+     * @param principal
      * @return void
-     * @Description: 更新用户授权信息缓存.
      * @author dingdongliang
-     * @date 2018/4/11 17:09
+     * @date 2018/4/17 17:45
      */
-    public void clearCachedAuthorizationInfo(SysUser user) {
-        clearCachedAuthorizationInfo(user.getUserName());
+    public void clearCachedAuthorizationInfo(String principal) {
+        SimplePrincipalCollection principals = new SimplePrincipalCollection(principal, getName());
+        clearCachedAuthorizationInfo(principals);
     }
 
     /**
-     * @param loginName
+     * 清除所有用户授权信息缓存.
+     *
      * @return void
-     * @Description: 更新用户授权信息缓存.
      * @author dingdongliang
-     * @date 2018/4/11 17:09
-     */
-    public void clearCachedAuthorizationInfo(String loginName) {
-        SimplePrincipalCollection principals = new SimplePrincipalCollection();
-        principals.add(loginName, super.getName());
-        super.clearCachedAuthenticationInfo(principals);
-    }
-
-
-    /**
-     * @return void
-     * @Description: 清除所有用户授权信息缓存.
-     * @author dingdongliang
-     * @date 2018/4/10 11:44
+     * @date 2018/4/17 17:46
      */
     public void clearAllCachedAuthorizationInfo() {
         Cache<Object, AuthorizationInfo> cache = getAuthorizationCache();

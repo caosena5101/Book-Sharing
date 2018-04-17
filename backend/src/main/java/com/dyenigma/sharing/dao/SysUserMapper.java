@@ -8,11 +8,9 @@ import org.apache.ibatis.annotations.Param;
  *
  * @Description :
  * @Author : dingdongliang
- * @Date : 2018/4/9 11:47
+ * @Date : 2018/4/17 10:35
  */
-public interface SysUserMapper extends MyMapper<SysUser> {
-
-
+public interface SysUserMapper {
     /**
      * 根据用户名和密码查询对应的用户，用于登录校验
      *
@@ -22,4 +20,6 @@ public interface SysUserMapper extends MyMapper<SysUser> {
      * @date 2018/4/12 17:43
      */
     SysUser userCertified(@Param("account") String account);
+
+    void insert(SysUser sysUser);
 }

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,22 +21,18 @@ public class BaseDomain implements Serializable {
     /**
      * 创造日期
      */
-    @Column(name = "CREATED")
     protected Date created;
     /**
      * 修改日期
      */
-    @Column(name = "LASTMOD")
     protected Date lastmod;
     /**
      * 创建人
      */
-    @Column(name = "CREATER")
     protected String creater;
     /**
      * 修改人
      */
-    @Column(name = "MODIFYER")
     protected String modifyer;
 
     @Override

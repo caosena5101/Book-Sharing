@@ -4,19 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 /**
  * backend/com.dyenigma.sharing.entity
  *
  * @Description :
  * @Author : dingdongliang
- * @Date : 2018/4/9 11:38
+ * @Date : 2018/4/17 10:25
  */
 @Getter
 @Setter
-public class SysUser extends BaseDomain {
+public class SysUser extends BaseDomain{
     private String userId;
 
     private String userName;
@@ -54,8 +52,4 @@ public class SysUser extends BaseDomain {
     private Integer isOnline;
 
     private Integer sort;
-
-    private Set<String> permissions;
-
-    private List<String> roles;
 }

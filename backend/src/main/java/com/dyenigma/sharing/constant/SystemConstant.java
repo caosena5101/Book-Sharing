@@ -43,9 +43,10 @@ public class SystemConstant {
     public static final String UNKNOWN = "unknown";
     public static final String COMMA = ",";
     public static final Integer SUCCESS_CODE = 1;
+    public static final Integer ERROR_CODE = 0;
     public static final String SUCCESS_MSG = "请求成功";
 
-    public static final String ALGORITHMNAME = "md5";
+    public static final String ALGORITHMNAME = "MD5";
     public static final Integer HASHITERATIONS = 2;
 
     /**

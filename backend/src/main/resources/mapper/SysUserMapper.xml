@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dyenigma.sharing.dao.SysUserMapper">
-    <resultMap id="BaseResultMap" type="com.dyenigma.sharing.entity.SysUser">
-        <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>
-        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
-        <result column="USER_NO" property="userNo" jdbcType="VARCHAR"/>
-        <result column="JOIN_TIME" property="joinTime" jdbcType="TIMESTAMP"/>
-        <result column="ACCOUNT" property="account" jdbcType="VARCHAR"/>
-        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
-        <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR"/>
-        <result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
-        <result column="USER_ADDR" property="userAddr" jdbcType="VARCHAR"/>
-        <result column="GENDER" property="gender" jdbcType="CHAR"/>
-        <result column="FIRST_LOGIN" property="firstLogin" jdbcType="TIMESTAMP"/>
-        <result column="PREV_LOGIN" property="prevLogin" jdbcType="TIMESTAMP"/>
-        <result column="PREV_IP" property="prevIp" jdbcType="VARCHAR"/>
-        <result column="LAST_LOGIN" property="lastLogin" jdbcType="TIMESTAMP"/>
-        <result column="LOGIN_COUNT" property="loginCount" jdbcType="VARCHAR"/>
-        <result column="STATUS" property="status" jdbcType="CHAR"/>
-        <result column="USER_DESC" property="userDesc" jdbcType="VARCHAR"/>
-        <result column="IS_ONLINE" property="isOnline" jdbcType="INTEGER"/>
-        <result column="SORT" property="sort" jdbcType="INTEGER"/>
-        <result column="CREATED" property="created" jdbcType="TIMESTAMP"/>
-        <result column="LASTMOD" property="lastmod" jdbcType="TIMESTAMP"/>
-        <result column="CREATER" property="creater" jdbcType="VARCHAR"/>
-        <result column="MODIFYER" property="modifyer" jdbcType="VARCHAR"/>
-    </resultMap>
+
     <sql id="Base_Column_List">
         USER_ID, USER_NAME, USER_NO, JOIN_TIME, ACCOUNT, PASSWORD, USER_EMAIL, USER_PHONE,
         USER_ADDR, GENDER, FIRST_LOGIN, PREV_LOGIN, PREV_IP, LAST_LOGIN, LOGIN_COUNT, STATUS,
         USER_DESC, IS_ONLINE, SORT, CREATED, LASTMOD, CREATER, MODIFYER
     </sql>
 
-    <select id="userCertified" parameterType="java.lang.String"
-            resultMap="BaseResultMap">
+    <select id="userCertified" parameterType="java.lang.String" resultType="com.dyenigma.sharing.entity.SysUser">
         select
         <include refid="Base_Column_List"/>
         from sys_user where account =#{account,jdbcType=VARCHAR}
     </select>
+
+    <insert id="insert" parameterType="com.dyenigma.sharing.entity.SysUser" >
+        insert into sys_user (USER_ID, USER_NAME, USER_NO,
+        JOIN_TIME, ACCOUNT, PASSWORD,
+        USER_EMAIL, USER_PHONE, USER_ADDR,
+        GENDER, FIRST_LOGIN, PREV_LOGIN,
+        PREV_IP, LAST_LOGIN, LOGIN_COUNT,
+        STATUS, USER_DESC, IS_ONLINE,
+        SORT, CREATED, LASTMOD,
+        CREATER, MODIFYER)
+        values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR},
+        #{joinTime,jdbcType=TIMESTAMP}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{userEmail,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR},
+        #{gender,jdbcType=CHAR}, #{firstLogin,jdbcType=TIMESTAMP}, #{prevLogin,jdbcType=TIMESTAMP},
+        #{prevIp,jdbcType=VARCHAR}, #{lastLogin,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=VARCHAR},
+        #{status,jdbcType=CHAR}, #{userDesc,jdbcType=VARCHAR}, #{isOnline,jdbcType=INTEGER},
+        #{sort,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{lastmod,jdbcType=TIMESTAMP},
+        #{creater,jdbcType=VARCHAR}, #{modifyer,jdbcType=VARCHAR})
+    </insert>
 
 </mapper>

@@ -38,9 +38,9 @@ public class LoginControllerTest extends SharingApplicationTests {
 
     @Test
     public void authLoginTest() throws Exception {
-        String loginInfo = "{\"username\":\"admin\",\"password\":\"admin\"}";
+        String loginInfo = "{\"username\":\"dyenigma\",\"password\":\"admin\"}";
 
-        String responseString = mockMvc.perform(post("/login/auth")
+        String responseString = mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON).content(loginInfo))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 

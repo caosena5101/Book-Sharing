@@ -1,11 +1,9 @@
 package com.dyenigma.sharing.config;
 
-
 import com.dyenigma.sharing.constant.SystemConstant;
 import com.dyenigma.sharing.shiro.AuthenticationFilter;
 import com.dyenigma.sharing.shiro.KickoutSessionControlFilter;
 import com.dyenigma.sharing.shiro.ShiroRealm;
-import io.buji.pac4j.subject.Pac4jSubjectFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -21,9 +19,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.env.Environment;
 
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,10 +34,6 @@ import java.util.Map;
 @Configuration
 @Slf4j
 public class ShiroConfigure {
-
-
-    @Resource
-    private Environment env;
 
     @Bean
     public EhCacheManager getEhCacheManager() {
@@ -67,10 +59,11 @@ public class ShiroConfigure {
     }
 
     /**
+     * 生成rememberMe管理器，而且要将这个rememberMe管理器设置到securityManager中
+     *
      * @return org.apache.shiro.web.mgt.CookieRememberMeManager
-     * @Description: 生成rememberMe管理器，而且要将这个rememberMe管理器设置到securityManager中
      * @author dingdongliang
-     * @date 2018/4/11 14:45
+     * @date 2018/4/17 17:02
      */
     @Bean
     public CookieRememberMeManager rememberMeManager() {
@@ -133,13 +126,13 @@ public class ShiroConfigure {
      * @date 2018/4/10 8:48
      */
     @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm) {
+    public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(shiroRealm);
+        securityManager.setRealm(userRealm());
         //用户授权/认证信息Cache, 采用EhCache 缓存
         securityManager.setCacheManager(getEhCacheManager());
         securityManager.setRememberMeManager(rememberMeManager());
-        securityManager.setSubjectFactory(new Pac4jSubjectFactory());
+//        securityManager.setSubjectFactory(new Pac4jSubjectFactory());
         return securityManager;
     }
 
@@ -160,18 +153,26 @@ public class ShiroConfigure {
 
 
     /**
+     * 凭证匹配器，这里用来检测密码，注意加密格式，可以扩展实现输入密码错误次数后锁定等功能
+     *
      * @return org.apache.shiro.authc.credential.HashedCredentialsMatcher
-     * @Description: 凭证匹配器，这里用来检测密码，注意加密格式，可以扩展实现输入密码错误次数后锁定等功能
      * @author dingdongliang
      * @date 2018/4/10 8:49
      */
-    @Bean(name = "credentialsMatcher")
+    @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName(SystemConstant.ALGORITHMNAME);
-        hashedCredentialsMatcher.setHashIterations(SystemConstant.HASHITERATIONS);
-        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
-        return hashedCredentialsMatcher;
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        credentialsMatcher.setHashAlgorithmName(SystemConstant.ALGORITHMNAME);
+        credentialsMatcher.setHashIterations(SystemConstant.HASHITERATIONS);
+        return credentialsMatcher;
+    }
+
+
+    @Bean
+    public ShiroRealm userRealm() {
+        ShiroRealm shiroRealm = new ShiroRealm();
+        shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return shiroRealm;
     }
 
     /**

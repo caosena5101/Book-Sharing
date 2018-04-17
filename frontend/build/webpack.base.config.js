@@ -87,14 +87,5 @@ module.exports = {
             'vue': 'vue/dist/vue.esm.js',
             '@': resolve('../src'),
         }
-    },
-    devServer: {
-        proxy: {
-            '/api': {
-                target: 'http://127.0.0.1:8181/',
-                pathRewrite: { '^/api': '/' },
-                changeOrigin: true
-            }
-        }
     }
 };
