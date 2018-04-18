@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * backend/com.dyenigma.sharing.config
  *
- * @Description :
+ * @Description : Shiro权限控制，页面设置、缓存、rememberme、加密算法等
  * @Author : dingdongliang
  * @Date : 2018/4/3 8:09
  */
@@ -44,10 +44,11 @@ public class ShiroConfigure {
 
 
     /**
+     * 设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等
+     *
      * @return org.apache.shiro.web.servlet.SimpleCookie
-     * @Description: 设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等
      * @author dingdongliang
-     * @date 2018/4/11 14:43
+     * @date 2018/4/18 14:27
      */
     @Bean
     public SimpleCookie rememberMeCookie() {
@@ -75,11 +76,12 @@ public class ShiroConfigure {
     }
 
     /**
+     * Shiro的Web过滤器Factory 命名:shiroFilter
+     *
      * @param securityManager
      * @return org.apache.shiro.spring.web.ShiroFilterFactoryBean
-     * @Description: Shiro的Web过滤器Factory 命名:shiroFilter
      * @author dingdongliang
-     * @date 2018/4/11 15:39
+     * @date 2018/4/18 14:27
      */
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
@@ -120,10 +122,11 @@ public class ShiroConfigure {
 
 
     /**
+     * 设定自定义Realm 、缓存和rememberme管理
+     *
      * @return org.apache.shiro.mgt.SecurityManager
-     * @Description: 不指定名字的话，自动创建一个方法名第一个字母小写的bean
      * @author dingdongliang
-     * @date 2018/4/10 8:48
+     * @date 2018/4/18 14:27
      */
     @Bean
     public SecurityManager securityManager() {
@@ -132,14 +135,15 @@ public class ShiroConfigure {
         //用户授权/认证信息Cache, 采用EhCache 缓存
         securityManager.setCacheManager(getEhCacheManager());
         securityManager.setRememberMeManager(rememberMeManager());
-//        securityManager.setSubjectFactory(new Pac4jSubjectFactory());
         return securityManager;
     }
 
     /**
      * 限制同一账号登录同时登录人数控制
      *
-     * @return
+     * @return com.dyenigma.sharing.shiro.KickoutSessionControlFilter
+     * @author dingdongliang
+     * @date 2018/4/18 14:28
      */
     public KickoutSessionControlFilter kickoutSessionControlFilter() {
         KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
@@ -168,6 +172,13 @@ public class ShiroConfigure {
     }
 
 
+    /**
+     * 自定义Realm，设置加密算法
+     *
+     * @return com.dyenigma.sharing.shiro.ShiroRealm
+     * @author dingdongliang
+     * @date 2018/4/18 14:28
+     */
     @Bean
     public ShiroRealm userRealm() {
         ShiroRealm shiroRealm = new ShiroRealm();
@@ -176,10 +187,11 @@ public class ShiroConfigure {
     }
 
     /**
+     * Shiro生命周期处理器
+     *
      * @return org.apache.shiro.spring.LifecycleBeanPostProcessor
-     * @Description: Shiro生命周期处理器
      * @author dingdongliang
-     * @date 2018/4/10 8:50
+     * @date 2018/4/18 14:28
      */
     @Bean
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
@@ -195,10 +207,12 @@ public class ShiroConfigure {
     }
 
     /**
+     * 开启shiro aop注解支持.必须设置生命周期处理器
+     *
+     * @param securityManager
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
-     * @Description: 开启shiro aop注解支持.
      * @author dingdongliang
-     * @date 2018/4/10 9:26
+     * @date 2018/4/18 14:28
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {

@@ -4,8 +4,8 @@ import com.dyenigma.sharing.dao.BaseMapper;
 import com.dyenigma.sharing.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,8 +16,9 @@ import java.util.List;
  * @Date : 2018/4/18 9:17
  */
 public class BaseServiceImpl<T> implements BaseService<T> {
-    @Autowired
-    protected BaseMapper<T> baseMapper;
+
+    @Resource
+    private BaseMapper<T> baseMapper;
 
     /**
      * 根据id查询实体

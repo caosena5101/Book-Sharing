@@ -6,7 +6,8 @@ import com.dyenigma.sharing.entity.SysUser;
 import com.dyenigma.sharing.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 /**
  * backend/com.dyenigma.sharing.service
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Slf4j
 public class SysUserServiceTest extends SharingApplicationTests {
-    @Autowired
+    @Resource
     private SysUserService sysUserService;
 
     @Test

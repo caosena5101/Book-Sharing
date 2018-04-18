@@ -19,8 +19,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * backend/com.dyenigma.sharing.shiro
@@ -33,7 +34,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShiroRealm extends AuthorizingRealm {
 
-    @Autowired
+    @Resource
     private SysUserService sysUserService;
 
     public ShiroRealm() {
@@ -41,11 +42,11 @@ public class ShiroRealm extends AuthorizingRealm {
     }
 
     /**
+     * 获取授权信息，首先检查Session中的信息，如果为空再重新获取
      * @param principals
      * @return org.apache.shiro.authz.AuthorizationInfo
-     * @Description: 获取授权信息，首先检查Session中的信息，如果为空再重新获取
      * @author dingdongliang
-     * @date 2018/4/10 9:38
+     * @date 2018/4/18 14:39
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -54,11 +55,11 @@ public class ShiroRealm extends AuthorizingRealm {
 
 
     /**
+     * 获取认证信息, 验证当前登录的Subject, 登录控制器login()方法执行Subject.login()时调用此方法
      * @param authcToken
      * @return org.apache.shiro.authc.AuthenticationInfo
-     * @Description: 获取认证信息, 验证当前登录的Subject, 登录控制器login()方法执行Subject.login()时调用此方法
      * @author dingdongliang
-     * @date 2018/4/10 9:38
+     * @date 2018/4/18 14:39
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws

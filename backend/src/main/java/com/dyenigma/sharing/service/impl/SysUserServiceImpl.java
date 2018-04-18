@@ -4,8 +4,9 @@ import com.dyenigma.sharing.dao.SysUserMapper;
 import com.dyenigma.sharing.entity.SysUser;
 import com.dyenigma.sharing.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * backend/com.dyenigma.sharing.service.impl
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
 
-    @Autowired
+    @Resource
     private SysUserMapper sysUserMapper;
 
     /**

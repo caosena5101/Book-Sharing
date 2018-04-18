@@ -17,7 +17,13 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseData {
 
+    /**
+     * 判断访问是否正常，比如登录成功、正常返回数据等都为true，有错误抛出则为false,前端只需要判断该值即可
+     */
     private Boolean status = true;
+    /**
+     * 错误代码和错误信息，统一放在枚举中
+     */
     private String code = RespCodeEnum.OK.getCode();
     private String message;
     private Object data;

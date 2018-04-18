@@ -14,6 +14,7 @@ import javax.servlet.ServletResponse;
  * @Date : 2018/4/11 15:28
  */
 public class AuthenticationFilter extends FormAuthenticationFilter {
+
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         if (isLoginRequest(request, response)) {

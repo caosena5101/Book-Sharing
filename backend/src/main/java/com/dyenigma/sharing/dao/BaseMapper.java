@@ -5,7 +5,7 @@ import tk.mybatis.mapper.common.Mapper;
 /**
  * sharing/com.dyenigma.sharing.dao
  *
- * @Description :
+ * @Description : 自定义通用Mapper接口，继承tk.Mapper,为了方便扩展
  * @Author : dingdongliang
  * @Date : 2018/4/18 8:34
  */

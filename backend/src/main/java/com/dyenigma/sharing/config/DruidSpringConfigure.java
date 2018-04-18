@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * sharing/com.dyenigma.sharing.config
  *
- * @Description :
+ * @Description : Druic监控Spring，目前没有起作用
  * @Author : dingdongliang
  * @Date : 2018/4/18 9:57
  */

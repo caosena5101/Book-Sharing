@@ -18,14 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice(annotations = RestController.class)
 @Slf4j
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(value = GlobalException.class)
     @ResponseBody
     public ResponseData jsonErrorHandler(HttpServletRequest req, GlobalException e) throws Exception {
-        ResponseData r = new ResponseData();
-        r.setMessage(e.getMessage());
-        r.setCode(e.getCode());
-        r.setData(null);
-        r.setStatus(false);
-        return r;
+        ResponseData responseData = new ResponseData();
+        responseData.setMessage(e.getMessage());
+        responseData.setCode(e.getCode());
+        responseData.setData(null);
+        responseData.setStatus(false);
+        return responseData;
     }
 }

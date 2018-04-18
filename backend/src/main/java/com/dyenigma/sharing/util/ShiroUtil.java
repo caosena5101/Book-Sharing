@@ -45,6 +45,13 @@ public class ShiroUtil {
         SecurityUtils.getSubject().logout();
     }
 
+    /**
+     * 获取校验验证码，并清空
+     * @param key
+     * @return java.lang.String
+     * @author dingdongliang
+     * @date 2018/4/18 14:42
+     */
     public static String getKaptcha(String key) {
         String kaptcha = getSessionAttribute(key).toString();
         getSession().removeAttribute(key);

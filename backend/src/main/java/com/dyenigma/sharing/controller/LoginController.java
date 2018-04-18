@@ -5,7 +5,6 @@ import com.dyenigma.sharing.constant.RespCodeEnum;
 import com.dyenigma.sharing.exception.ApiException;
 import com.dyenigma.sharing.exception.GlobalException;
 import com.dyenigma.sharing.exception.ResponseData;
-import com.dyenigma.sharing.service.SysUserService;
 import com.dyenigma.sharing.util.JsonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +19,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,21 +31,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date : 2018/4/10 7:50
  */
 @RestController
-@Api(value = "P2P图书馆测试-登录控制器接口")
+@Api(value = "P2P图书馆-用户登录接口（登录验证和退出）")
 @Slf4j
 public class LoginController {
-    @Autowired
-    private SysUserService sysUserService;
-
-    private static final String RESULT = "result";
-    private static final String CODE = "code";
 
     /**
+     * 登录验证
+     *
      * @param requestJson
-     * @return com.alibaba.fastjson.JSONObject
-     * @Description: 登录验证
+     * @return com.dyenigma.sharing.exception.ResponseData
      * @author dingdongliang
-     * @date 2018/4/11 17:57
+     * @date 2018/4/18 14:22
      */
     @ApiOperation(value = "用户登陆方法", notes = "详细说明文档")
     @PostMapping("/login")
@@ -93,10 +87,11 @@ public class LoginController {
 
 
     /**
-     * @return com.alibaba.fastjson.JSONObject
-     * @Description: 登出
+     * 登出，会触发退出事件，清空用户状态，见ShiroRealm中的onLogout方法
+     *
+     * @return com.dyenigma.sharing.exception.ResponseData
      * @author dingdongliang
-     * @date 2018/4/11 18:01
+     * @date 2018/4/18 14:23
      */
     @PostMapping("/logout")
     public ResponseData logout() throws GlobalException {

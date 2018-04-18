@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * backend/com.dyenigma.sharing.controller
  *
- * @Description :
+ * @Description : 注意如果集成shiro，必须在wac上配置filter
  * @Author : dingdongliang
  * @Date : 2018/4/10 7:58
  */

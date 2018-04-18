@@ -51,11 +51,11 @@ public class StringUtil {
     }
 
     /**
-     * @param number 生成主键的个数
+     * 生成number个主键
+     * @param number
      * @return java.lang.String[]
-     * @Description: 生成number个主键
      * @author dingdongliang
-     * @date 2018/3/28 17:04
+     * @date 2018/4/18 14:43
      */
     public static String[] getUUID(int number) {
         if (number < 1) {

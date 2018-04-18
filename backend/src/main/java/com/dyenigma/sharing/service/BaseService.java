@@ -25,7 +25,6 @@ public interface BaseService<T> {
     /**
      * 查询所有
      *
-     * @param
      * @return java.util.List<T>
      * @author dingdongliang
      * @date 2018/4/18 9:16

@@ -8,13 +8,13 @@ import java.util.Date;
 /**
  * backend/com.dyenigma.sharing.entity
  *
- * @Description :
+ * @Description : 系统用户实体类，继承BaseDomain
  * @Author : dingdongliang
  * @Date : 2018/4/17 10:25
  */
 @Getter
 @Setter
-public class SysUser extends BaseDomain{
+public class SysUser extends BaseDomain {
     private String userId;
 
     private String userName;

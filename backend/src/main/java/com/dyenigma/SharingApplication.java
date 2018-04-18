@@ -2,7 +2,6 @@ package com.dyenigma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 
 
 /**
@@ -13,7 +12,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @Date : 2018/4/3 8:30
  */
 @SpringBootApplication
-@ServletComponentScan
 public class SharingApplication {
 
     public static void main(String[] args) {

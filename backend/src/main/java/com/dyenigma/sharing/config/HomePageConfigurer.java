@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * backend/com.dyenigma.sharing.config
  *
- * @Description : 设置默认页面路径
+ * @Description : 设置默认页面路径，主页设置为自动文档页面
  * @Author : dingdongliang
  * @Date : 2018/4/3 8:31
  */

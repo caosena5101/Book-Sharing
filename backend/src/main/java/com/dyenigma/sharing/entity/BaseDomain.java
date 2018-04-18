@@ -42,9 +42,12 @@ public class BaseDomain implements Serializable {
 
     /**
      * 数据库记录字段赋值，新添加记录时调用
-     * param domain
-     * param userId
-     * return
+     *
+     * @param domain
+     * @param userId
+     * @return com.dyenigma.sharing.entity.BaseDomain
+     * @author dingdongliang
+     * @date 2018/4/18 14:31
      */
     public static BaseDomain createLog(BaseDomain domain, String userId) {
         return createLog(domain, userId, true);
@@ -52,9 +55,12 @@ public class BaseDomain implements Serializable {
 
     /**
      * 数据库记录字段赋值，修改记录时调用
-     * param domain
-     * param userId
-     * return
+     *
+     * @param domain
+     * @param userId
+     * @return com.dyenigma.sharing.entity.BaseDomain
+     * @author dingdongliang
+     * @date 2018/4/18 14:31
      */
     public static BaseDomain editLog(BaseDomain domain, String userId) {
         return createLog(domain, userId, false);
@@ -62,10 +68,13 @@ public class BaseDomain implements Serializable {
 
     /**
      * 数据库记录字段赋值，统一处理方法
-     * param domain
-     * param userId
-     * param flag 当为true时，为新数据，false为修改数据
-     * return
+     *
+     * @param domain
+     * @param userId
+     * @param flag   true为新数据，false为修改数据
+     * @return com.dyenigma.sharing.entity.BaseDomain
+     * @author dingdongliang
+     * @date 2018/4/18 14:32
      */
     public static BaseDomain createLog(BaseDomain domain, String userId, boolean flag) {
         if (flag) {
