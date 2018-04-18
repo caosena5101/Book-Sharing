@@ -20,6 +20,4 @@ public interface SysUserService extends BaseService<SysUser> {
      * @date 2018/4/12 17:45
      */
     SysUser userCertified(String account);
-
-
 }

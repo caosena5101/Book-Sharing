@@ -2,6 +2,7 @@ package com.dyenigma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.mybatis.spring.annotation.MapperScan;
 
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Author : dingdongliang
  * @Date : 2018/4/3 8:30
  */
+@MapperScan("com.dyenigma.sharing.dao")
 @SpringBootApplication
 public class SharingApplication {
 

@@ -37,7 +37,6 @@ ext {
     druidVersion = '1.1.9'
     pageHelperVersion = '1.2.3'
     guavaVersion = '23.0'
-    tkMapperVersion = '2.0.1'
     poiVersion = '3.17'
     quartzVersion = '2.3.0'
     log4j2slf4jVersion = '2.8.2'
@@ -65,7 +64,6 @@ dependencies {
             "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisBootVersion}",
             "com.github.pagehelper:pagehelper-spring-boot-starter:${pageHelperVersion}",
             "org.apache.logging.log4j:log4j-to-slf4j:${log4j2slf4jVersion}",
-            "tk.mybatis:mapper-spring-boot-starter:${tkMapperVersion}",
             "org.apache.commons:commons-lang3:${apacheLangVersion}",
             "com.alibaba:druid-spring-boot-starter:${druidVersion}",
             "io.springfox:springfox-swagger-ui:${swaggerVerion}",

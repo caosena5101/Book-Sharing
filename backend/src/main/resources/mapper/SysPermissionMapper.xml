@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dyenigma.sharing.dao.SysPermissionMapper">
+
+    <sql id="Base_Column_List">
+        PMSN_ID, MENU_NAME, MENU_CODE, PRNT_ID, PRNT_NAME, PMSN_CODE, PMSN_NAME, PMSN_TYPE,
+        STATUS, PMSN_URL, PMSN_DESC, REQUIRED, CREATED, LASTMOD, CREATER, MODIFYER
+    </sql>
+
+    <select id="getUserPermission" parameterType="java.lang.String"
+            resultType="com.dyenigma.sharing.entity.SysPermission">
+
+        select
+        <include refid="Base_Column_List"/>
+        from sys_permission where pmsn_id in
+        (select pmsn_id from sys_role_pmsn where role_id in
+        (select role_id from sys_user_role where user_id = #{userId,jdbcType=VARCHAR}))
+
+    </select>
+
+</mapper>

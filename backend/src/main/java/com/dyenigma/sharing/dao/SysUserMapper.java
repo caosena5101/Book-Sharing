@@ -1,7 +1,6 @@
 package com.dyenigma.sharing.dao;
 
 import com.dyenigma.sharing.entity.SysUser;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -11,7 +10,6 @@ import org.apache.ibatis.annotations.Param;
  * @Author : dingdongliang
  * @Date : 2018/4/17 10:35
  */
-@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据用户名和密码查询对应的用户，用于登录校验

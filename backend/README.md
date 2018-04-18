@@ -19,7 +19,23 @@
 - 在doGetAuthenticationInfo(AuthenticationToken)方法中，首先将AuthenticationToken转换为UsernamePasswordToken对象upToken，然后调用Service层，根据upToken中的用户名到数据库中查询密码； 
 -  由shiro完成密码的比对。密码的比对是通过AuthenticatingRealm的credentialsMatcher属性来进行比对的。
 ###分页流程
+-  PageHelper.startPage(page, rows);
+-  List<T> list = baseMapper.selectByExample(t);
+-  return new PageInfo<>(list);
 ###权限流程
+###统一异常处理
+- 方法抛出GlobalException
+- 错误抛出ApiException
+- 异常说明在RespCodeEnum
+- 返回格式为ResponseData
+###自动生成代码
+- 配置generatorConfig.xml
+- java -jar E:\mybatis-generator-core-*.jar -configfile E:\generatorConfig.xml -overwrite
+- 小技巧
+	- 建表时，字段名称建议用下划线分隔多个单词，比如:AWB\_NO、REC\_ID...，这样生成的entity，属性名称就会变成漂亮的驼峰命名，即：awbNo、recId
+	- oracle中，数值形的字段，如果指定精度，比如Number(12,2)，默认生成entity属性是BigDecimal型 ，如果不指定精度，比如:Number(9)，指默认生成的是Long型
+	- oracle中的nvarchar/nvarchar2，mybatis-generator会识别成Object型，建议不要用nvarchar2，改用varchar2
+
 ##Mybatis配置
 ###通用Mapper
 - 添加依赖："tk.mybatis:mapper-spring-boot-starter:${tkMapperVersion}"
@@ -162,3 +178,6 @@
 - deny：IP黑名单，多个使用逗号隔开，优先级高
 
 ###密码加密
+- 运行java -cp druid-1.0.16.jar com.alibaba.druid.filter.config.ConfigTools you_password
+- 获取key和密文，设置在配置文件中，并在Druid配置中设置：
+- connection-properties: config.decrypt=true;config.decrypt.key=${public-key};

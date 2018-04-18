@@ -4,8 +4,8 @@ import com.dyenigma.sharing.dao.BaseMapper;
 import com.dyenigma.sharing.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,8 +17,9 @@ import java.util.List;
  */
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-    @Resource
-    private BaseMapper<T> baseMapper;
+
+    @Autowired
+    protected BaseMapper<T> baseMapper;
 
     /**
      * 根据id查询实体
@@ -34,6 +35,22 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     /**
+     * 全部分页
+     *
+     * @param page
+     * @param rows
+     * @return com.github.pagehelper.PageInfo<T>
+     * @author dingdongliang
+     * @date 2018/4/18 9:16
+     */
+    @Override
+    public PageInfo<T> selectPageByAll(int page, int rows) {
+        PageHelper.startPage(page, rows);
+        List<T> list = baseMapper.selectAll();
+        return new PageInfo<>(list);
+    }
+
+    /**
      * 查询所有
      *
      * @return java.util.List<T>
@@ -45,18 +62,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return baseMapper.selectAll();
     }
 
-    /**
-     * 条件查询
-     *
-     * @param t
-     * @return java.util.List<T>
-     * @author dingdongliang
-     * @date 2018/4/18 9:16
-     */
-    @Override
-    public List<T> selectByExample(T t) {
-        return baseMapper.selectByExample(t);
-    }
 
     /**
      * 查询记录数
@@ -71,22 +76,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return baseMapper.selectCount(t);
     }
 
-    /**
-     * 分页
-     *
-     * @param t
-     * @param page
-     * @param rows
-     * @return com.github.pagehelper.PageInfo<T>
-     * @author dingdongliang
-     * @date 2018/4/18 9:16
-     */
-    @Override
-    public PageInfo<T> selectPageByCondition(T t, int page, int rows) {
-        PageHelper.startPage(page, rows);
-        List<T> list = baseMapper.selectByExample(t);
-        return new PageInfo<>(list);
-    }
 
     /**
      * 查询一条记录
@@ -113,6 +102,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     public int insert(T t) {
         return baseMapper.insert(t);
     }
+
+
 
     /**
      * 新增非空字段

@@ -31,88 +31,82 @@ public interface BaseService<T> {
      */
     List<T> selectAll();
 
-    /**
-     * 条件查询
-     *
-     * @param param
-     * @return java.util.List<T>
-     * @author dingdongliang
-     * @date 2018/4/18 9:16
-     */
-    List<T> selectByExample(T param);
+
 
     /**
      * 查询记录数
      *
-     * @param param
+     * @param t
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:16
      */
-    int selectCount(T param);
+    int selectCount(T t);
+
+
 
     /**
-     * 分页
+     * 全部分页
      *
-     * @param param
      * @param page
      * @param rows
      * @return com.github.pagehelper.PageInfo<T>
      * @author dingdongliang
      * @date 2018/4/18 9:16
      */
-    PageInfo<T> selectPageByCondition(T param, int page, int rows);
+    PageInfo<T> selectPageByAll(int page, int rows);
+
 
     /**
      * 查询一条记录
      *
-     * @param param
+     * @param t
      * @return T
      * @author dingdongliang
      * @date 2018/4/18 9:17
      */
-    T selectOne(T param);
+    T selectOne(T t);
 
     /**
      * 插入
      *
-     * @param param
+     * @param t
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
      */
-    int insert(T param);
+    int insert(T t);
 
     /**
      * 新增非空字段
      *
-     * @param param
+     * @param t
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
      */
-    int insertSelective(T param);
+    int insertSelective(T t);
 
     /**
      * 根据主键更新
      *
-     * @param param
+     * @param t
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
      */
-    int updateByPrimaryKey(T param);
+    int updateByPrimaryKey(T t);
 
 
     /**
      * 根据主键更新非空字段
      *
-     * @param param
+     * @param t
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
      */
-    int updateByPrimaryKeySelective(T param);
+    int updateByPrimaryKeySelective(T t);
 
 
     /**
