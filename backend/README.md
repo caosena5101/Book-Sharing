@@ -1,4 +1,11 @@
 ##处理流程说明
+###RESTFULL标准
+- GET /api/users，获取全部
+- POST /api/users，新增一个
+- GET /api/users/:id，获取单个
+- DELETE /api/users/:id，删除单个
+- PUT /api/users/:id，全量更新
+- PATCH /api/users/:id，部分更新
 ###登录验证设置
 - 在securityManager中设定自定义realm：setRealm(userRealm());
 - 在自定义realm中设定验证规则：setCredentialsMatcher(hashedCredentialsMatcher());
@@ -13,6 +20,24 @@
 -  由shiro完成密码的比对。密码的比对是通过AuthenticatingRealm的credentialsMatcher属性来进行比对的。
 ###分页流程
 ###权限流程
+##Mybatis配置
+###通用Mapper
+- 添加依赖："tk.mybatis:mapper-spring-boot-starter:${tkMapperVersion}"
+- 所有的自定义Mapper接口添加@Mapper注解
+- 配置文件添加：
+   
+		mapper:
+ 		  mappers:
+    		    - tk.mybatis.mapper.common.Mapper
+  		  not-empty: true
+
+###分页插件
+- 添加依赖："com.github.pagehelper:pagehelper-spring-boot-starter:${pageHelperVersion}"
+- 在查询语句前面加上PageHelper的startPage方法，然后把查询结果放入PageInfo对象返回
+
+	 	PageHelper.startPage(page, rows);
+        List<T> list = baseMapper.selectByExample(t);
+        return new PageInfo<>(list);
 
 ##Shiro配置
 ###单点登录

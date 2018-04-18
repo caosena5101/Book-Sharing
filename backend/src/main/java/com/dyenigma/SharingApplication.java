@@ -1,6 +1,5 @@
 package com.dyenigma;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -14,7 +13,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @Date : 2018/4/3 8:30
  */
 @SpringBootApplication
-@MapperScan("com.dyenigma.sharing.dao")
 @ServletComponentScan
 public class SharingApplication {
 

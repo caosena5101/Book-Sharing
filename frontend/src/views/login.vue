@@ -66,8 +66,10 @@
 
                         axios.post(urlStr, postData).then(function (response) {
                             console.log(response);
+                            alert(JSON.stringify(response));
+
                             //登录成功保存用户登录状态
-                            if (response.data.code === 1) {
+                            if (response.data.code === "200") {
                                 Cookies.set('user', response.data.result);
                                 that.$store.commit('setAvator', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg');
                                 //设置当前用户权限，权限列表将与/router/router.js中配置的节点access字符串相匹配确定是否显示此菜单，匹配操作见/store/app.js/updateMenulist()

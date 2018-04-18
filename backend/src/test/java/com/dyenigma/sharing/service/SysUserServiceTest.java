@@ -1,6 +1,7 @@
 package com.dyenigma.sharing.service;
 
 import com.dyenigma.SharingApplicationTests;
+import com.dyenigma.sharing.entity.BaseDomain;
 import com.dyenigma.sharing.entity.SysUser;
 import com.dyenigma.sharing.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +23,12 @@ public class SysUserServiceTest extends SharingApplicationTests {
     @Test
     public void insertTest() {
         SysUser sysUser = new SysUser();
-        sysUser.setUserId(StringUtil.getUUID());
-        sysUser.setAccount("admin");
-        sysUser.setPassword(StringUtil.encryptPassword("admin", "admin"));
+        String userId = StringUtil.getUUID();
+        sysUser.setUserId(userId);
+        sysUser.setAccount("dyenigma");
+        sysUser.setPassword(StringUtil.encryptPassword("admin", "dyenigma"));
         sysUser.setStatus("E");
+        BaseDomain.createLog(sysUser, userId);
         sysUserService.insert(sysUser);
     }
 }

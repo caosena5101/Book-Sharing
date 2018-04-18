@@ -3,7 +3,8 @@ package com.dyenigma.sharing.util;
 import com.alibaba.fastjson.JSONObject;
 import com.dyenigma.sharing.constant.RespCodeEnum;
 import com.dyenigma.sharing.constant.SystemConstant;
-import com.dyenigma.sharing.exception.JsonException;
+import com.dyenigma.sharing.exception.ApiException;
+import com.dyenigma.sharing.exception.GlobalException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -37,7 +38,7 @@ public class JsonUtil {
      */
     public static JSONObject successJson(Object returnData) {
         JSONObject resultJson = new JSONObject();
-        resultJson.put(SystemConstant.CODE, SystemConstant.SUCCESS_CODE);
+        resultJson.put(SystemConstant.CODE, SystemConstant.SUCCESS_RESULT);
         resultJson.put(SystemConstant.MESSAGE, SystemConstant.SUCCESS_MSG);
         resultJson.put(SystemConstant.DATA, returnData);
         return resultJson;
@@ -51,7 +52,8 @@ public class JsonUtil {
      * @author dingdongliang
      * @date 2018/3/11 19:18
      */
-    public static JSONObject convert2JsonAndCheckRequiredColumns(HttpServletRequest request, String requiredColumns) {
+    public static JSONObject convert2JsonAndCheckRequiredColumns(HttpServletRequest request, String requiredColumns)
+            throws GlobalException {
         JSONObject jsonObject = request2Json(request);
         hasAllRequired(jsonObject, requiredColumns);
         return jsonObject;
@@ -92,7 +94,7 @@ public class JsonUtil {
      * @author dingdongliang
      * @date 2018/3/11 19:20
      */
-    public static void hasAllRequired(final JSONObject jsonObject, String requiredColumns) {
+    public static void hasAllRequired(final JSONObject jsonObject, String requiredColumns) throws GlobalException {
         if (!StringUtil.isNullOrEmpty(requiredColumns)) {
             //验证字段非空
             String[] columns = requiredColumns.split(",");
@@ -104,11 +106,7 @@ public class JsonUtil {
                 }
             }
             if (!StringUtil.isNullOrEmpty(missCol)) {
-                jsonObject.clear();
-                jsonObject.put(SystemConstant.CODE, RespCodeEnum.NOT_ENOUGH_PARAMS.getCode());
-                jsonObject.put(SystemConstant.MESSAGE, "缺少必填参数:" + missCol.trim());
-                jsonObject.put(SystemConstant.DATA, new JSONObject());
-                throw new JsonException(jsonObject);
+                throw new ApiException(RespCodeEnum.NOT_ENOUGH_PARAMS);
             }
         }
     }
@@ -123,7 +121,7 @@ public class JsonUtil {
     public static JSONObject errorJson(RespCodeEnum respCodeEnum) {
         JSONObject resultJson = new JSONObject();
         resultJson.put(SystemConstant.CODE, respCodeEnum.getCode());
-        resultJson.put(SystemConstant.MESSAGE, respCodeEnum.getDesc());
+        resultJson.put(SystemConstant.MESSAGE, respCodeEnum.getMessage());
         resultJson.put(SystemConstant.DATA, new JSONObject());
         return resultJson;
     }

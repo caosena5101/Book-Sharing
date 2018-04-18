@@ -42,8 +42,8 @@ public class SystemConstant {
     public static final String FALSE = "false";
     public static final String UNKNOWN = "unknown";
     public static final String COMMA = ",";
-    public static final Integer SUCCESS_CODE = 1;
-    public static final Integer ERROR_CODE = 0;
+    public static final boolean SUCCESS_RESULT = true;
+    public static final boolean ERROR_RESULT = false;
     public static final String SUCCESS_MSG = "请求成功";
 
     public static final String ALGORITHMNAME = "MD5";

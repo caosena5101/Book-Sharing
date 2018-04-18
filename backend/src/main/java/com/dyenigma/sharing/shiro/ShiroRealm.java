@@ -1,6 +1,6 @@
 package com.dyenigma.sharing.shiro;
 
-import com.dyenigma.sharing.constant.ErrorConstant;
+import com.dyenigma.sharing.constant.RespCodeEnum;
 import com.dyenigma.sharing.constant.SystemConstant;
 import com.dyenigma.sharing.entity.SysUser;
 import com.dyenigma.sharing.service.SysUserService;
@@ -71,11 +71,11 @@ public class ShiroRealm extends AuthorizingRealm {
         SysUser sysUser = sysUserService.userCertified(account);
 
         if (sysUser == null) {
-            throw new UnknownAccountException(ErrorConstant.NO_ACCOUNT);
+            throw new UnknownAccountException(RespCodeEnum.NO_ACCOUNT.getMessage());
         }
 
         if (SystemConstant.INVALID.equals(sysUser.getStatus())) {
-            throw new LockedAccountException(ErrorConstant.ACCOUNT_LOCKED);
+            throw new LockedAccountException(RespCodeEnum.ACCOUNT_LOCKED.getMessage());
         }
 
         Object principal = account;
@@ -83,6 +83,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
         ByteSource salt = ByteSource.Util.bytes(account);
 
+        //第一个参数是要验证的账号，第二个参数是数据库中获取的密码，第三个参数是盐值
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 principal, credentials, salt, getName());
 

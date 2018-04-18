@@ -1,13 +1,9 @@
 package com.dyenigma.sharing.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dyenigma.sharing.dao.SysUserMapper;
 import com.dyenigma.sharing.entity.SysUser;
 import com.dyenigma.sharing.service.SysUserService;
-import com.dyenigma.sharing.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -39,9 +35,4 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
 
-
-    @Override
-    public void insert(SysUser sysUser) {
-        sysUserMapper.insert(sysUser);
-    }
 }

@@ -9,7 +9,7 @@ import com.dyenigma.sharing.entity.SysUser;
  * @Author : dingdongliang
  * @Date : 2018/4/17 10:28
  */
-public interface SysUserService {
+public interface SysUserService extends BaseService<SysUser> {
 
     /**
      * 根据用户名和密码查询对应的用户, 用于登录认证
@@ -22,5 +22,4 @@ public interface SysUserService {
     SysUser userCertified(String account);
 
 
-    void insert(SysUser sysUser);
 }

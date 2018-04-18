@@ -1,8 +1,10 @@
 package com.dyenigma.sharing.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dyenigma.sharing.constant.ErrorConstant;
-import com.dyenigma.sharing.constant.SystemConstant;
+import com.dyenigma.sharing.constant.RespCodeEnum;
+import com.dyenigma.sharing.exception.ApiException;
+import com.dyenigma.sharing.exception.GlobalException;
+import com.dyenigma.sharing.exception.ResponseData;
 import com.dyenigma.sharing.service.SysUserService;
 import com.dyenigma.sharing.util.JsonUtil;
 import io.swagger.annotations.Api;
@@ -49,16 +51,14 @@ public class LoginController {
      */
     @ApiOperation(value = "用户登陆方法", notes = "详细说明文档")
     @PostMapping("/login")
-    public JSONObject authLogin(@ApiParam(name = "requestJson",
+    public ResponseData authLogin(@ApiParam(name = "requestJson",
             value = "格式为{\"username\": \"admin\"," + "\"password\": \"admin\"}", required = true)
-                                @RequestBody JSONObject requestJson) {
+                                  @RequestBody JSONObject requestJson) throws GlobalException {
         JsonUtil.hasAllRequired(requestJson, "username,password");
 
         String account = requestJson.getString("username");
         String password = requestJson.getString("password");
 
-        JSONObject returnData = new JSONObject();
-        returnData.put(CODE, SystemConstant.ERROR_CODE);
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(
                 account, password);
@@ -67,29 +67,28 @@ public class LoginController {
                 currentUser.login(token);
             }
             log.debug("对用户[{}]进行登录验证..验证通过", account);
-            returnData.put(CODE, SystemConstant.SUCCESS_CODE);
-            returnData.put(RESULT, SystemConstant.SUCCESS);
-        } catch (UnknownAccountException e) {
-            log.error(ErrorConstant.NO_ACCOUNT);
-            returnData.put(RESULT, ErrorConstant.NO_ACCOUNT);
-        } catch (IncorrectCredentialsException e) {
-            log.error(ErrorConstant.PWD_ERROR + e.getMessage());
-            returnData.put(RESULT, ErrorConstant.PWD_ERROR);
-        } catch (LockedAccountException e) {
-            log.error(ErrorConstant.ACCOUNT_LOCKED);
-            returnData.put(RESULT, ErrorConstant.ACCOUNT_LOCKED);
-        } catch (ExcessiveAttemptsException e) {
-            log.error(ErrorConstant.TRY_MORE_FIVE);
-            returnData.put(RESULT, ErrorConstant.TRY_MORE_FIVE);
-        } catch (DisabledAccountException e) {
-            log.error(ErrorConstant.ACCOUNT_FORBID);
-            returnData.put(RESULT, ErrorConstant.ACCOUNT_FORBID);
-        } catch (AuthenticationException e) {
-            log.error(ErrorConstant.STH_ERROR + e.getMessage());
-            returnData.put(RESULT, ErrorConstant.STH_ERROR);
-        }
-        return returnData;
 
+        } catch (UnknownAccountException e) {
+            log.error(RespCodeEnum.NO_ACCOUNT.getMessage());
+            throw new ApiException(RespCodeEnum.NO_ACCOUNT);
+        } catch (IncorrectCredentialsException e) {
+            log.error(RespCodeEnum.PWD_ERROR + e.getMessage());
+            throw new ApiException(RespCodeEnum.PWD_ERROR);
+        } catch (LockedAccountException e) {
+            log.error(RespCodeEnum.ACCOUNT_LOCKED.getMessage());
+            throw new ApiException(RespCodeEnum.ACCOUNT_LOCKED);
+        } catch (ExcessiveAttemptsException e) {
+            log.error(RespCodeEnum.TRY_MORE_FIVE.getMessage());
+            throw new ApiException(RespCodeEnum.TRY_MORE_FIVE);
+        } catch (DisabledAccountException e) {
+            log.error(RespCodeEnum.ACCOUNT_FORBID.getMessage());
+            throw new ApiException(RespCodeEnum.ACCOUNT_FORBID);
+        } catch (AuthenticationException e) {
+            log.error(RespCodeEnum.STH_ERROR.getMessage());
+            throw new ApiException(RespCodeEnum.STH_ERROR);
+        }
+
+        return ResponseData.success();
     }
 
 
@@ -100,14 +99,15 @@ public class LoginController {
      * @date 2018/4/11 18:01
      */
     @PostMapping("/logout")
-    public JSONObject logout() {
+    public ResponseData logout() throws GlobalException {
         try {
             Subject currentUser = SecurityUtils.getSubject();
             currentUser.logout();
         } catch (Exception e) {
             log.error(e.getMessage());
+            throw new ApiException(RespCodeEnum.SERVER_ERROR);
         }
-        return JsonUtil.successJson();
+        return ResponseData.success();
     }
 }
 
