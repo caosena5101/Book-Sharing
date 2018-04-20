@@ -51,7 +51,6 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
 
     }
 
-
     @Test
     public void selectByPrimaryKeyTest() {
         SysPermission sysPermission = sysPermissionService.selectByPrimaryKey("");

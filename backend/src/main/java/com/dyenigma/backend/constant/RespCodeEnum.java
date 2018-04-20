@@ -59,7 +59,6 @@ public enum RespCodeEnum {
     ACCOUNT_ALREADY_EXISTS("1003", "Account already exists"),
     LOGOUT_PLEASE_RE_LOGIN("1004", "Login has expired, please re-login"),
 
-
     ILLEGAL_PARAMS("ILLEGAL_PARAMS", "非法请求参数"),
     SERVER_ERROR("SERVER_ERROR", "服务正忙"),
     NO_ACCOUNT("NO_ACCOUNT", "未知账户"),

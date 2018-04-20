@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-
     @Autowired
     protected BaseMapper<T> baseMapper;
 
@@ -62,7 +61,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return baseMapper.selectAll();
     }
 
-
     /**
      * 查询记录数
      *
@@ -75,7 +73,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     public int selectCount(T t) {
         return baseMapper.selectCount(t);
     }
-
 
     /**
      * 查询一条记录
@@ -102,8 +99,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     public int insert(T t) {
         return baseMapper.insert(t);
     }
-
-
 
     /**
      * 新增非空字段

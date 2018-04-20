@@ -35,5 +35,4 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
         return sysUserMapper.userCertified(account);
     }
 
-
 }

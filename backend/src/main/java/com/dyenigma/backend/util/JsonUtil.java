@@ -99,7 +99,6 @@ public class JsonUtil {
      * @date 2018/4/18 14:40
      */
 
-
     public static void hasAllRequired(final JSONObject jsonObject, String requiredColumns) throws GlobalException {
         if (!StringUtil.isNullOrEmpty(requiredColumns)) {
             //验证字段非空

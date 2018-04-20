@@ -43,6 +43,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 获取授权信息，首先检查Session中的信息，如果为空再重新获取
+     *
      * @param principals
      * @return org.apache.shiro.authz.AuthorizationInfo
      * @author dingdongliang
@@ -53,9 +54,9 @@ public class ShiroRealm extends AuthorizingRealm {
         return null;
     }
 
-
     /**
      * 获取认证信息, 验证当前登录的Subject, 登录控制器login()方法执行Subject.login()时调用此方法
+     *
      * @param authcToken
      * @return org.apache.shiro.authc.AuthenticationInfo
      * @author dingdongliang
@@ -92,7 +93,6 @@ public class ShiroRealm extends AuthorizingRealm {
         return authenticationInfo;
     }
 
-
     /**
      * 用户退出时，清空所有的用户缓存
      *
@@ -106,7 +106,6 @@ public class ShiroRealm extends AuthorizingRealm {
         super.clearCachedAuthorizationInfo(principals);
         clearAllCachedAuthorizationInfo();
     }
-
 
     /**
      * 更新用户授权信息缓存.

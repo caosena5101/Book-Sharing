@@ -35,7 +35,6 @@ public class LoginControllerTest extends BackendApplicationTests {
                 .addFilter((Filter) wac.getBean("shiroFilter")).build();
     }
 
-
     @Test
     public void authLoginTest() throws Exception {
         String loginInfo = "{\"username\":\"dyenigma\",\"password\":\"admin\"}";

@@ -63,7 +63,7 @@ public class SysUserServiceTest extends BackendApplicationTests {
     @Test
     public void updateByPrimaryKeyTest() {
         SysUser sysUser = sysUserService.selectByPrimaryKey("9045b033e3ad42b0bf7819a228dd50ee");
-        sysUser.setUserName("dingdongliang");
+        sysUser.setUserName("super man");
         sysUserService.updateByPrimaryKey(sysUser);
     }
 

@@ -52,6 +52,7 @@ public class StringUtil {
 
     /**
      * 生成number个主键
+     *
      * @param number
      * @return java.lang.String[]
      * @author dingdongliang

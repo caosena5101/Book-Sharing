@@ -47,6 +47,7 @@ public class ShiroUtil {
 
     /**
      * 获取校验验证码，并清空
+     *
      * @param key
      * @return java.lang.String
      * @author dingdongliang

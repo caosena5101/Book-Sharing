@@ -85,7 +85,6 @@ public class LoginController {
         return ResponseData.success();
     }
 
-
     /**
      * 登出，会触发退出事件，清空用户状态，见ShiroRealm中的onLogout方法
      *

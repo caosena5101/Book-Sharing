@@ -42,7 +42,6 @@ public class ShiroConfigure {
         return ehcacheManager;
     }
 
-
     /**
      * 设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等
      *
@@ -120,7 +119,6 @@ public class ShiroConfigure {
         return shiroFilter;
     }
 
-
     /**
      * 设定自定义Realm 、缓存和rememberme管理
      *
@@ -155,7 +153,6 @@ public class ShiroConfigure {
         return kickoutSessionControlFilter;
     }
 
-
     /**
      * 凭证匹配器，这里用来检测密码，注意加密格式，可以扩展实现输入密码错误次数后锁定等功能
      *
@@ -170,7 +167,6 @@ public class ShiroConfigure {
         credentialsMatcher.setHashIterations(SystemConstant.HASHITERATIONS);
         return credentialsMatcher;
     }
-
 
     /**
      * 自定义Realm，设置加密算法

@@ -79,5 +79,4 @@ public class SystemConstant {
      */
     public static final String NOFLAG = "undo";
 
-
 }

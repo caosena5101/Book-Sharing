@@ -31,8 +31,6 @@ public interface BaseService<T> {
      */
     List<T> selectAll();
 
-
-
     /**
      * 查询记录数
      *
@@ -42,8 +40,6 @@ public interface BaseService<T> {
      * @date 2018/4/18 9:16
      */
     int selectCount(T t);
-
-
 
     /**
      * 全部分页
@@ -55,7 +51,6 @@ public interface BaseService<T> {
      * @date 2018/4/18 9:16
      */
     PageInfo<T> selectPageByAll(int page, int rows);
-
 
     /**
      * 查询一条记录
@@ -97,7 +92,6 @@ public interface BaseService<T> {
      */
     int updateByPrimaryKey(T t);
 
-
     /**
      * 根据主键更新非空字段
      *
@@ -108,7 +102,6 @@ public interface BaseService<T> {
      */
     int updateByPrimaryKeySelective(T t);
 
-
     /**
      * 根据主键删除
      *
@@ -118,6 +111,5 @@ public interface BaseService<T> {
      * @date 2018/4/18 9:17
      */
     int deleteByPrimaryKey(String id);
-
 
 }
