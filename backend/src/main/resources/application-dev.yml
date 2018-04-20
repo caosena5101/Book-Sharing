@@ -58,7 +58,7 @@ spring:
 
 mybatis:
   mapperLocations: classpath:/mapper/*.xml
-  type-aliases-package: com.dyenigma.sharing.entity
+  type-aliases-package: com.dyenigma.backend.entity
 
 swagger:
   enable: true

@@ -1,36 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dyenigma.sharing.dao.SysUserMapper">
+<mapper namespace="com.dyenigma.backend.dao.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.dyenigma.backend.entity.SysUser">
+        <id column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="USER_NO" property="userNo" jdbcType="VARCHAR"/>
+        <result column="JOIN_TIME" property="joinTime" jdbcType="TIMESTAMP"/>
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR"/>
+        <result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR"/>
+        <result column="USER_ADDR" property="userAddr" jdbcType="VARCHAR"/>
+        <result column="GENDER" property="gender" jdbcType="CHAR"/>
+        <result column="FIRST_LOGIN" property="firstLogin" jdbcType="TIMESTAMP"/>
+        <result column="PREV_LOGIN" property="prevLogin" jdbcType="TIMESTAMP"/>
+        <result column="PREV_IP" property="prevIp" jdbcType="VARCHAR"/>
+        <result column="LAST_LOGIN" property="lastLogin" jdbcType="TIMESTAMP"/>
+        <result column="LOGIN_COUNT" property="loginCount" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="CHAR"/>
+        <result column="USER_DESC" property="userDesc" jdbcType="VARCHAR"/>
+        <result column="IS_ONLINE" property="isOnline" jdbcType="INTEGER"/>
+        <result column="SORT" property="sort" jdbcType="INTEGER"/>
+        <result column="CREATED" property="created" jdbcType="TIMESTAMP"/>
+        <result column="LASTMOD" property="lastmod" jdbcType="TIMESTAMP"/>
+        <result column="CREATER" property="creater" jdbcType="VARCHAR"/>
+        <result column="MODIFYER" property="modifyer" jdbcType="VARCHAR"/>
+    </resultMap>
 
     <sql id="Base_Column_List">
-        USER_ID, USER_NAME, USER_NO, JOIN_TIME, ACCOUNT, PASSWORD, USER_EMAIL, USER_PHONE,
-        USER_ADDR, GENDER, FIRST_LOGIN, PREV_LOGIN, PREV_IP, LAST_LOGIN, LOGIN_COUNT, STATUS,
-        USER_DESC, IS_ONLINE, SORT, CREATED, LASTMOD, CREATER, MODIFYER
-    </sql>
+    USER_ID, USER_NAME, USER_NO, JOIN_TIME, ACCOUNT, PASSWORD, USER_EMAIL, USER_PHONE,
+    USER_ADDR, GENDER, FIRST_LOGIN, PREV_LOGIN, PREV_IP, LAST_LOGIN, LOGIN_COUNT, STATUS,
+    USER_DESC, IS_ONLINE, SORT, CREATED, LASTMOD, CREATER, MODIFYER
+  </sql>
 
-    <select id="userCertified" parameterType="java.lang.String" resultType="com.dyenigma.sharing.entity.SysUser">
+    <select id="userCertified" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sys_user where account =#{account,jdbcType=VARCHAR}
     </select>
 
-    <select id="selectAll" resultType="com.dyenigma.sharing.entity.SysUser">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from sys_user
     </select>
 
-    <select id="selectByPrimaryKey" resultType="com.dyenigma.sharing.entity.SysUser" parameterType="java.lang.String" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from sys_user
         where USER_ID = #{userId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from sys_user
         where USER_ID = #{userId,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.dyenigma.sharing.entity.SysUser" >
+    <insert id="insert" parameterType="com.dyenigma.backend.entity.SysUser">
         insert into sys_user (USER_ID, USER_NAME, USER_NO,
         JOIN_TIME, ACCOUNT, PASSWORD,
         USER_EMAIL, USER_PHONE, USER_ADDR,
@@ -48,224 +73,224 @@
         #{sort,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{lastmod,jdbcType=TIMESTAMP},
         #{creater,jdbcType=VARCHAR}, #{modifyer,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.dyenigma.sharing.entity.SysUser" >
+    <insert id="insertSelective" parameterType="com.dyenigma.backend.entity.SysUser">
         insert into sys_user
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="userId != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
                 USER_ID,
             </if>
-            <if test="userName != null" >
+            <if test="userName != null">
                 USER_NAME,
             </if>
-            <if test="userNo != null" >
+            <if test="userNo != null">
                 USER_NO,
             </if>
-            <if test="joinTime != null" >
+            <if test="joinTime != null">
                 JOIN_TIME,
             </if>
-            <if test="account != null" >
+            <if test="account != null">
                 ACCOUNT,
             </if>
-            <if test="password != null" >
+            <if test="password != null">
                 PASSWORD,
             </if>
-            <if test="userEmail != null" >
+            <if test="userEmail != null">
                 USER_EMAIL,
             </if>
-            <if test="userPhone != null" >
+            <if test="userPhone != null">
                 USER_PHONE,
             </if>
-            <if test="userAddr != null" >
+            <if test="userAddr != null">
                 USER_ADDR,
             </if>
-            <if test="gender != null" >
+            <if test="gender != null">
                 GENDER,
             </if>
-            <if test="firstLogin != null" >
+            <if test="firstLogin != null">
                 FIRST_LOGIN,
             </if>
-            <if test="prevLogin != null" >
+            <if test="prevLogin != null">
                 PREV_LOGIN,
             </if>
-            <if test="prevIp != null" >
+            <if test="prevIp != null">
                 PREV_IP,
             </if>
-            <if test="lastLogin != null" >
+            <if test="lastLogin != null">
                 LAST_LOGIN,
             </if>
-            <if test="loginCount != null" >
+            <if test="loginCount != null">
                 LOGIN_COUNT,
             </if>
-            <if test="status != null" >
+            <if test="status != null">
                 STATUS,
             </if>
-            <if test="userDesc != null" >
+            <if test="userDesc != null">
                 USER_DESC,
             </if>
-            <if test="isOnline != null" >
+            <if test="isOnline != null">
                 IS_ONLINE,
             </if>
-            <if test="sort != null" >
+            <if test="sort != null">
                 SORT,
             </if>
-            <if test="created != null" >
+            <if test="created != null">
                 CREATED,
             </if>
-            <if test="lastmod != null" >
+            <if test="lastmod != null">
                 LASTMOD,
             </if>
-            <if test="creater != null" >
+            <if test="creater != null">
                 CREATER,
             </if>
-            <if test="modifyer != null" >
+            <if test="modifyer != null">
                 MODIFYER,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="userId != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
                 #{userId,jdbcType=VARCHAR},
             </if>
-            <if test="userName != null" >
+            <if test="userName != null">
                 #{userName,jdbcType=VARCHAR},
             </if>
-            <if test="userNo != null" >
+            <if test="userNo != null">
                 #{userNo,jdbcType=VARCHAR},
             </if>
-            <if test="joinTime != null" >
+            <if test="joinTime != null">
                 #{joinTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="account != null" >
+            <if test="account != null">
                 #{account,jdbcType=VARCHAR},
             </if>
-            <if test="password != null" >
+            <if test="password != null">
                 #{password,jdbcType=VARCHAR},
             </if>
-            <if test="userEmail != null" >
+            <if test="userEmail != null">
                 #{userEmail,jdbcType=VARCHAR},
             </if>
-            <if test="userPhone != null" >
+            <if test="userPhone != null">
                 #{userPhone,jdbcType=VARCHAR},
             </if>
-            <if test="userAddr != null" >
+            <if test="userAddr != null">
                 #{userAddr,jdbcType=VARCHAR},
             </if>
-            <if test="gender != null" >
+            <if test="gender != null">
                 #{gender,jdbcType=CHAR},
             </if>
-            <if test="firstLogin != null" >
+            <if test="firstLogin != null">
                 #{firstLogin,jdbcType=TIMESTAMP},
             </if>
-            <if test="prevLogin != null" >
+            <if test="prevLogin != null">
                 #{prevLogin,jdbcType=TIMESTAMP},
             </if>
-            <if test="prevIp != null" >
+            <if test="prevIp != null">
                 #{prevIp,jdbcType=VARCHAR},
             </if>
-            <if test="lastLogin != null" >
+            <if test="lastLogin != null">
                 #{lastLogin,jdbcType=TIMESTAMP},
             </if>
-            <if test="loginCount != null" >
+            <if test="loginCount != null">
                 #{loginCount,jdbcType=VARCHAR},
             </if>
-            <if test="status != null" >
+            <if test="status != null">
                 #{status,jdbcType=CHAR},
             </if>
-            <if test="userDesc != null" >
+            <if test="userDesc != null">
                 #{userDesc,jdbcType=VARCHAR},
             </if>
-            <if test="isOnline != null" >
+            <if test="isOnline != null">
                 #{isOnline,jdbcType=INTEGER},
             </if>
-            <if test="sort != null" >
+            <if test="sort != null">
                 #{sort,jdbcType=INTEGER},
             </if>
-            <if test="created != null" >
+            <if test="created != null">
                 #{created,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastmod != null" >
+            <if test="lastmod != null">
                 #{lastmod,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null" >
+            <if test="creater != null">
                 #{creater,jdbcType=VARCHAR},
             </if>
-            <if test="modifyer != null" >
+            <if test="modifyer != null">
                 #{modifyer,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.dyenigma.sharing.entity.SysUser" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.dyenigma.backend.entity.SysUser">
         update sys_user
-        <set >
-            <if test="userName != null" >
+        <set>
+            <if test="userName != null">
                 USER_NAME = #{userName,jdbcType=VARCHAR},
             </if>
-            <if test="userNo != null" >
+            <if test="userNo != null">
                 USER_NO = #{userNo,jdbcType=VARCHAR},
             </if>
-            <if test="joinTime != null" >
+            <if test="joinTime != null">
                 JOIN_TIME = #{joinTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="account != null" >
+            <if test="account != null">
                 ACCOUNT = #{account,jdbcType=VARCHAR},
             </if>
-            <if test="password != null" >
+            <if test="password != null">
                 PASSWORD = #{password,jdbcType=VARCHAR},
             </if>
-            <if test="userEmail != null" >
+            <if test="userEmail != null">
                 USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
             </if>
-            <if test="userPhone != null" >
+            <if test="userPhone != null">
                 USER_PHONE = #{userPhone,jdbcType=VARCHAR},
             </if>
-            <if test="userAddr != null" >
+            <if test="userAddr != null">
                 USER_ADDR = #{userAddr,jdbcType=VARCHAR},
             </if>
-            <if test="gender != null" >
+            <if test="gender != null">
                 GENDER = #{gender,jdbcType=CHAR},
             </if>
-            <if test="firstLogin != null" >
+            <if test="firstLogin != null">
                 FIRST_LOGIN = #{firstLogin,jdbcType=TIMESTAMP},
             </if>
-            <if test="prevLogin != null" >
+            <if test="prevLogin != null">
                 PREV_LOGIN = #{prevLogin,jdbcType=TIMESTAMP},
             </if>
-            <if test="prevIp != null" >
+            <if test="prevIp != null">
                 PREV_IP = #{prevIp,jdbcType=VARCHAR},
             </if>
-            <if test="lastLogin != null" >
+            <if test="lastLogin != null">
                 LAST_LOGIN = #{lastLogin,jdbcType=TIMESTAMP},
             </if>
-            <if test="loginCount != null" >
+            <if test="loginCount != null">
                 LOGIN_COUNT = #{loginCount,jdbcType=VARCHAR},
             </if>
-            <if test="status != null" >
+            <if test="status != null">
                 STATUS = #{status,jdbcType=CHAR},
             </if>
-            <if test="userDesc != null" >
+            <if test="userDesc != null">
                 USER_DESC = #{userDesc,jdbcType=VARCHAR},
             </if>
-            <if test="isOnline != null" >
+            <if test="isOnline != null">
                 IS_ONLINE = #{isOnline,jdbcType=INTEGER},
             </if>
-            <if test="sort != null" >
+            <if test="sort != null">
                 SORT = #{sort,jdbcType=INTEGER},
             </if>
-            <if test="created != null" >
+            <if test="created != null">
                 CREATED = #{created,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastmod != null" >
+            <if test="lastmod != null">
                 LASTMOD = #{lastmod,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null" >
+            <if test="creater != null">
                 CREATER = #{creater,jdbcType=VARCHAR},
             </if>
-            <if test="modifyer != null" >
+            <if test="modifyer != null">
                 MODIFYER = #{modifyer,jdbcType=VARCHAR},
             </if>
         </set>
         where USER_ID = #{userId,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.dyenigma.sharing.entity.SysUser" >
+    <update id="updateByPrimaryKey" parameterType="com.dyenigma.backend.entity.SysUser">
         update sys_user
         set USER_NAME = #{userName,jdbcType=VARCHAR},
         USER_NO = #{userNo,jdbcType=VARCHAR},

@@ -11,7 +11,7 @@ logging:
 spring:
   datasource:
     druid:
-      aop-patterns: com.dyenigma.sharing.service.*,com.dyenigma.sharing.dao.*
+      aop-patterns: com.dyenigma.backend.service.*,com.dyenigma.backend.dao.*
       url: jdbc:mysql://localhost:3306/example?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: root
       password: ${password}
@@ -59,7 +59,7 @@ spring:
 
 mybatis:
   mapperLocations: classpath:/mapper/*.xml
-  type-aliases-package: com.dyenigma.sharing.entity
+  type-aliases-package: com.dyenigma.backend.entity
 
 swagger:
   enable: true

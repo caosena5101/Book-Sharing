@@ -20,7 +20,6 @@ group = 'com.dyenigma'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
-
 repositories {
     maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
     maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
@@ -47,7 +46,6 @@ ext {
 dependencies {
     compile(
             "org.springframework.boot:spring-boot-starter-actuator",
-            "org.springframework.boot:spring-boot-starter-amqp",
             "org.springframework.boot:spring-boot-starter-aop",
             "org.springframework.boot:spring-boot-starter-data-redis",
             "org.springframework.boot:spring-boot-starter-web",
@@ -56,7 +54,6 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-aop",
             "org.springframework.boot:spring-boot-devtools",
-            "org.springframework.boot:spring-boot-starter-data-mongodb",
             "org.springframework.boot:spring-boot-autoconfigure",
             "org.springframework.boot:spring-boot-starter-data-redis",
             "org.springframework.boot:spring-boot-starter-cache",

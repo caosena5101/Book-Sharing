@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dyenigma.sharing.dao.SysPermissionMapper">
+<mapper namespace="com.dyenigma.backend.dao.SysPermissionMapper">
 
     <sql id="Base_Column_List">
         PMSN_ID, MENU_NAME, MENU_CODE, PRNT_ID, PRNT_NAME, PMSN_CODE, PMSN_NAME, PMSN_TYPE,
@@ -8,7 +8,7 @@
     </sql>
 
     <select id="getUserPermission" parameterType="java.lang.String"
-            resultType="com.dyenigma.sharing.entity.SysPermission">
+            resultType="com.dyenigma.backend.entity.SysPermission">
 
         select
         <include refid="Base_Column_List"/>
