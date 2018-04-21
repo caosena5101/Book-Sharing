@@ -28,6 +28,9 @@ public class SysRoleServiceTest extends BackendApplicationTests {
     public void insertTest() {
         SysRole sysRole = new SysRole();
         String roleId = StringUtil.getUUID();
+        sysRole.setRoleId(roleId);
+        sysRole.setRoleName("管理员");
+        sysRole.setStatus("E");
         BaseDomain.createLog(sysRole, roleId);
         sysRoleService.insert(sysRole);
     }
@@ -44,21 +47,21 @@ public class SysRoleServiceTest extends BackendApplicationTests {
 
     @Test
     public void selectByPrimaryKeyTest() {
-        SysRole sysRole = sysRoleService.selectByPrimaryKey("");
+        SysRole sysRole = sysRoleService.selectByPrimaryKey("64205b16f5d04b47aea4b091d88c243e");
         log.info(sysRole.toString());
     }
 
     @Test
     public void updateByPrimaryKeyTest() {
-        SysRole sysRole = new SysRole();
-        String roleId = StringUtil.getUUID();
-        BaseDomain.createLog(sysRole, roleId);
+        SysRole sysRole = sysRoleService.selectByPrimaryKey("64205b16f5d04b47aea4b091d88c243e");
+        sysRole.setRoleName("反叛者");
+        BaseDomain.editLog(sysRole, "9045b033e3ad42b0bf7819a228dd50ee");
         sysRoleService.updateByPrimaryKey(sysRole);
     }
 
     @Test
     public void deleteByPrimaryKeyTest() {
-        sysRoleService.deleteByPrimaryKey("");
+        sysRoleService.deleteByPrimaryKey("64205b16f5d04b47aea4b091d88c243e");
     }
 
     @Test

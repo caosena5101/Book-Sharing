@@ -27,14 +27,14 @@ public class SysPermission extends BaseDomain {
 
     private String pmsnName;
 
-    private String pmsnType;
+    private String pmsnType = "menu";
 
-    private String status;
+    private String status = "E";
 
     private String pmsnUrl;
 
     private String pmsnDesc;
 
-    private String required;
+    private String required = "N";
 
 }

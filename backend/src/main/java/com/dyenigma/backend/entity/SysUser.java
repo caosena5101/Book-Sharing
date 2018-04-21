@@ -33,7 +33,7 @@ public class SysUser extends BaseDomain {
 
     private String userAddr;
 
-    private String gender;
+    private String gender = "M";
 
     private Date firstLogin;
 
@@ -45,7 +45,7 @@ public class SysUser extends BaseDomain {
 
     private String loginCount;
 
-    private String status;
+    private String status = "E";
 
     private String userDesc;
 

@@ -28,6 +28,11 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
     public void insertTest() {
         SysPermission sysPermission = new SysPermission();
         String pmsnId = StringUtil.getUUID();
+        sysPermission.setPmsnId(pmsnId);
+        sysPermission.setMenuName("权限管理");
+        sysPermission.setMenuCode("sysMgr");
+        sysPermission.setPmsnName("");
+        sysPermission.setPmsnCode("");
         BaseDomain.createLog(sysPermission, pmsnId);
         sysPermissionService.insert(sysPermission);
     }
@@ -44,7 +49,7 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
 
     @Test
     public void getUserPermissionTest() {
-        List<SysPermission> sysPermissionList = sysPermissionService.getUserPermission("");
+        List<SysPermission> sysPermissionList = sysPermissionService.getUserPermission("9045b033e3ad42b0bf7819a228dd50ee");
         for (SysPermission sysPermission : sysPermissionList) {
             log.info(sysPermission.toString());
         }
@@ -53,21 +58,20 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
 
     @Test
     public void selectByPrimaryKeyTest() {
-        SysPermission sysPermission = sysPermissionService.selectByPrimaryKey("");
+        SysPermission sysPermission = sysPermissionService.selectByPrimaryKey("e45da745fb2042acba811113be1cbeaf");
         log.info(sysPermission.toString());
     }
 
     @Test
     public void updateByPrimaryKeyTest() {
-        SysPermission sysPermission = new SysPermission();
-        String pmsnId = StringUtil.getUUID();
-        BaseDomain.createLog(sysPermission, pmsnId);
+        SysPermission sysPermission = sysPermissionService.selectByPrimaryKey("e45da745fb2042acba811113be1cbeaf");
+        BaseDomain.editLog(sysPermission, "9045b033e3ad42b0bf7819a228dd50ee");
         sysPermissionService.updateByPrimaryKey(sysPermission);
     }
 
     @Test
     public void deleteByPrimaryKeyTest() {
-        sysPermissionService.deleteByPrimaryKey("");
+        sysPermissionService.deleteByPrimaryKey("e45da745fb2042acba811113be1cbeaf");
     }
 
     @Test

@@ -21,11 +21,11 @@ public class BaseDomain implements Serializable {
     /**
      * 创造日期
      */
-    protected Date created;
+    protected Date created = new Date();
     /**
      * 修改日期
      */
-    protected Date lastmod;
+    protected Date lastmod = new Date();
     /**
      * 创建人
      */

@@ -19,8 +19,8 @@ public class SysRole extends BaseDomain {
 
     private String roleDesc;
 
-    private String status;
+    private String status = "E";
 
-    private String isDefault;
+    private String isDefault = "N";
 
 }
