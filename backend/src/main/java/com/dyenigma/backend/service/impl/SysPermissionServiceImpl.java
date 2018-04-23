@@ -1,8 +1,12 @@
 package com.dyenigma.backend.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.dyenigma.backend.constant.SystemConstant;
 import com.dyenigma.backend.dao.SysPermissionMapper;
 import com.dyenigma.backend.entity.SysPermission;
 import com.dyenigma.backend.service.SysPermissionService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,5 +36,23 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
     @Override
     public List<SysPermission> getUserPermission(String userId) {
         return sysPermissionMapper.getUserPermission(userId);
+    }
+
+    /**
+     * 查询当前登录用户的权限等信息
+     *
+     * @return java.util.List<com.dyenigma.backend.entity.SysPermission>
+     * @author dingdongliang
+     * @date 2018/4/23 14:50
+     */
+    @Override
+    public List<SysPermission> getCurrentInfo() {
+        //从session获取用户信息
+        Session session = SecurityUtils.getSubject().getSession();
+        JSONObject userInfo = (JSONObject) session.getAttribute(SystemConstant.SESSION_USER_INFO);
+        String username = userInfo.getString("username");
+        List<SysPermission> userPermission = getUserPermission(username);
+        session.setAttribute(SystemConstant.SESSION_USER_PERMISSION, userPermission);
+        return userPermission;
     }
 }

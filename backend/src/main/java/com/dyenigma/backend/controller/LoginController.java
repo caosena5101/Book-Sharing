@@ -2,9 +2,11 @@ package com.dyenigma.backend.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dyenigma.backend.constant.RespCodeEnum;
+import com.dyenigma.backend.entity.SysPermission;
 import com.dyenigma.backend.exception.ApiException;
 import com.dyenigma.backend.exception.GlobalException;
 import com.dyenigma.backend.exception.ResponseData;
+import com.dyenigma.backend.service.SysPermissionService;
 import com.dyenigma.backend.util.JsonUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +25,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * backend/com.dyenigma.backend.controller
  *
@@ -34,6 +39,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "P2P图书馆-用户登录接口（登录验证和退出）")
 @Slf4j
 public class LoginController {
+
+    @Resource
+    private SysPermissionService sysPermissionService;
 
     /**
      * 登录验证
@@ -102,6 +110,19 @@ public class LoginController {
             throw new ApiException(RespCodeEnum.SERVER_ERROR);
         }
         return ResponseData.success();
+    }
+
+    /**
+     * 获取当前用户的权限
+     *
+     * @return com.dyenigma.backend.exception.ResponseData
+     * @author dingdongliang
+     * @date 2018/4/23 17:51
+     */
+    @PostMapping("/getCurrentInfo")
+    public ResponseData getCurrentInfo() {
+        List<SysPermission> sysPermissionList = sysPermissionService.getCurrentInfo();
+        return ResponseData.success(sysPermissionList);
     }
 }
 
