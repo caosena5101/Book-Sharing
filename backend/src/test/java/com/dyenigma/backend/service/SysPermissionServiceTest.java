@@ -15,10 +15,11 @@ import java.util.List;
 /**
  * sharing/com.dyenigma.backend.service
  *
- * @Description :
+ * @Description : 因为涉及SecurityManager的获取，必须在controller层面测试，这里的所有测试方法作废
  * @Author : dingdongliang
  * @Date : 2018/4/18 16:24
  */
+@Deprecated
 @Slf4j
 public class SysPermissionServiceTest extends BackendApplicationTests {
     @Resource
@@ -33,7 +34,7 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
         sysPermission.setMenuCode("sysMgr");
         sysPermission.setPmsnName("");
         sysPermission.setPmsnCode("");
-        BaseDomain.createLog(sysPermission, pmsnId);
+        BaseDomain.createLog(sysPermission);
         sysPermissionService.insert(sysPermission);
     }
 
@@ -65,7 +66,7 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
     @Test
     public void updateByPrimaryKeyTest() {
         SysPermission sysPermission = sysPermissionService.selectByPrimaryKey("e45da745fb2042acba811113be1cbeaf");
-        BaseDomain.editLog(sysPermission, "9045b033e3ad42b0bf7819a228dd50ee");
+        BaseDomain.updateLog(sysPermission);
         sysPermissionService.updateByPrimaryKey(sysPermission);
     }
 
@@ -81,4 +82,5 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
             log.info(sysPermission.toString());
         }
     }
+
 }

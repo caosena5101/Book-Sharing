@@ -32,16 +32,6 @@ public interface BaseService<T> {
     List<T> selectAll();
 
     /**
-     * 查询记录数
-     *
-     * @param t
-     * @return int
-     * @author dingdongliang
-     * @date 2018/4/18 9:16
-     */
-    int selectCount(T t);
-
-    /**
      * 全部分页
      *
      * @param page
@@ -51,16 +41,6 @@ public interface BaseService<T> {
      * @date 2018/4/18 9:16
      */
     PageInfo<T> selectPageByAll(int page, int rows);
-
-    /**
-     * 查询一条记录
-     *
-     * @param t
-     * @return T
-     * @author dingdongliang
-     * @date 2018/4/18 9:17
-     */
-    T selectOne(T t);
 
     /**
      * 插入

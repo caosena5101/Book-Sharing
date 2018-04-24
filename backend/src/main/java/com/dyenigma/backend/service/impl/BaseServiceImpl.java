@@ -4,8 +4,8 @@ import com.dyenigma.backend.dao.BaseMapper;
 import com.dyenigma.backend.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,13 +17,13 @@ import java.util.List;
  */
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-    @Autowired
-    protected BaseMapper<T> baseMapper;
+    @Resource
+    private BaseMapper<T> baseMapper;
 
     /**
      * 根据id查询实体
      *
-     * @param id
+     * @param id 主键
      * @return T
      * @author dingdongliang
      * @date 2018/4/18 9:16
@@ -36,8 +36,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     /**
      * 全部分页
      *
-     * @param page
-     * @param rows
+     * @param page 页数
+     * @param rows 行数
      * @return com.github.pagehelper.PageInfo<T>
      * @author dingdongliang
      * @date 2018/4/18 9:16
@@ -62,35 +62,9 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     /**
-     * 查询记录数
-     *
-     * @param t
-     * @return int
-     * @author dingdongliang
-     * @date 2018/4/18 9:16
-     */
-    @Override
-    public int selectCount(T t) {
-        return baseMapper.selectCount(t);
-    }
-
-    /**
-     * 查询一条记录
-     *
-     * @param t
-     * @return T
-     * @author dingdongliang
-     * @date 2018/4/18 9:17
-     */
-    @Override
-    public T selectOne(T t) {
-        return baseMapper.selectOne(t);
-    }
-
-    /**
      * 插入
      *
-     * @param t
+     * @param t 实体类
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
@@ -103,7 +77,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     /**
      * 新增非空字段
      *
-     * @param t
+     * @param t 实体类
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
@@ -116,7 +90,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     /**
      * 根据主键更新
      *
-     * @param t
+     * @param t 实体类
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
@@ -129,7 +103,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     /**
      * 根据主键更新非空字段
      *
-     * @param t
+     * @param t 实体类
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17
@@ -142,7 +116,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     /**
      * 根据主键删除
      *
-     * @param id
+     * @param id 主键
      * @return int
      * @author dingdongliang
      * @date 2018/4/18 9:17

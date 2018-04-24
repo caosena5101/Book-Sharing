@@ -39,7 +39,7 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
     }
 
     /**
-     * 查询当前登录用户的权限等信息
+     * 查询当前登录用户的权限等信息,TODO 这里包含测试数据，需要修改
      *
      * @return java.util.List<com.dyenigma.backend.entity.SysPermission>
      * @author dingdongliang
@@ -50,8 +50,14 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
         //从session获取用户信息
         Session session = SecurityUtils.getSubject().getSession();
         JSONObject userInfo = (JSONObject) session.getAttribute(SystemConstant.SESSION_USER_INFO);
-        String username = userInfo.getString("username");
-        List<SysPermission> userPermission = getUserPermission(username);
+        String userId;
+        if (userInfo == null) {
+            userId = "9045b033e3ad42b0bf7819a228dd50ee";
+        } else {
+            userId = userInfo.getString("userId");
+        }
+
+        List<SysPermission> userPermission = getUserPermission(userId);
         session.setAttribute(SystemConstant.SESSION_USER_PERMISSION, userPermission);
         return userPermission;
     }

@@ -1,8 +1,12 @@
 package com.dyenigma.backend.entity;
 
+import com.alibaba.fastjson.JSONObject;
+import com.dyenigma.backend.constant.SystemConstant;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -43,40 +47,47 @@ public class BaseDomain implements Serializable {
     /**
      * 数据库记录字段赋值，新添加记录时调用
      *
-     * @param domain
-     * @param userId
+     * @param domain 子类对象
      * @return com.dyenigma.backend.entity.BaseDomain
      * @author dingdongliang
      * @date 2018/4/18 14:31
      */
-    public static BaseDomain createLog(BaseDomain domain, String userId) {
-        return createLog(domain, userId, true);
+    public static void createLog(BaseDomain domain) {
+        createLog(domain, true);
     }
 
     /**
      * 数据库记录字段赋值，修改记录时调用
      *
-     * @param domain
-     * @param userId
+     * @param domain 子类对象
      * @return com.dyenigma.backend.entity.BaseDomain
      * @author dingdongliang
      * @date 2018/4/18 14:31
      */
-    public static BaseDomain editLog(BaseDomain domain, String userId) {
-        return createLog(domain, userId, false);
+    public static void updateLog(BaseDomain domain) {
+        createLog(domain, false);
     }
 
     /**
-     * 数据库记录字段赋值，统一处理方法
+     * 数据库记录字段赋值，统一处理方法,TODO 这里包含测试数据userId，需要更改
      *
-     * @param domain
-     * @param userId
+     * @param domain 子类对象
      * @param flag   true为新数据，false为修改数据
      * @return com.dyenigma.backend.entity.BaseDomain
      * @author dingdongliang
      * @date 2018/4/18 14:32
      */
-    public static BaseDomain createLog(BaseDomain domain, String userId, boolean flag) {
+    private static void createLog(BaseDomain domain, boolean flag) {
+
+        Session session = SecurityUtils.getSubject().getSession();
+        JSONObject userInfo = (JSONObject) session.getAttribute(SystemConstant.SESSION_USER_INFO);
+        String userId;
+        if (userInfo == null) {
+            userId = "9045b033e3ad42b0bf7819a228dd50ee";
+        } else {
+            userId = userInfo.getString("userId");
+        }
+
         if (flag) {
             domain.setCreated(new Date());
             domain.setLastmod(new Date());
@@ -86,6 +97,6 @@ public class BaseDomain implements Serializable {
             domain.setLastmod(new Date());
             domain.setModifyer(userId);
         }
-        return domain;
+
     }
 }

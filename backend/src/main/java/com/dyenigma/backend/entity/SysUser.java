@@ -49,7 +49,7 @@ public class SysUser extends BaseDomain {
 
     private String userDesc;
 
-    private Integer isOnline;
+    private Integer isOnline = 0;
 
-    private Integer sort;
+    private Integer sort = 1;
 }

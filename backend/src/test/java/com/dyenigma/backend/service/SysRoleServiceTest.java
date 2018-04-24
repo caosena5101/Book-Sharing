@@ -15,10 +15,11 @@ import java.util.List;
 /**
  * sharing/com.dyenigma.backend.service
  *
- * @Description :
+ * @Description : 因为涉及SecurityManager的获取，必须在controller层面测试，这里的所有测试方法作废
  * @Author : dingdongliang
  * @Date : 2018/4/18 16:19
  */
+@Deprecated
 @Slf4j
 public class SysRoleServiceTest extends BackendApplicationTests {
     @Resource
@@ -31,7 +32,7 @@ public class SysRoleServiceTest extends BackendApplicationTests {
         sysRole.setRoleId(roleId);
         sysRole.setRoleName("管理员");
         sysRole.setStatus("E");
-        BaseDomain.createLog(sysRole, roleId);
+        BaseDomain.createLog(sysRole);
         sysRoleService.insert(sysRole);
     }
 
@@ -55,7 +56,7 @@ public class SysRoleServiceTest extends BackendApplicationTests {
     public void updateByPrimaryKeyTest() {
         SysRole sysRole = sysRoleService.selectByPrimaryKey("64205b16f5d04b47aea4b091d88c243e");
         sysRole.setRoleName("反叛者");
-        BaseDomain.editLog(sysRole, "9045b033e3ad42b0bf7819a228dd50ee");
+        BaseDomain.updateLog(sysRole);
         sysRoleService.updateByPrimaryKey(sysRole);
     }
 

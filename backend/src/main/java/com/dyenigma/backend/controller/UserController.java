@@ -1,6 +1,7 @@
 package com.dyenigma.backend.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dyenigma.backend.entity.BaseDomain;
 import com.dyenigma.backend.entity.SysRole;
 import com.dyenigma.backend.entity.SysUser;
 import com.dyenigma.backend.exception.GlobalException;
@@ -8,6 +9,7 @@ import com.dyenigma.backend.exception.ResponseData;
 import com.dyenigma.backend.service.SysRoleService;
 import com.dyenigma.backend.service.SysUserService;
 import com.dyenigma.backend.util.JsonUtil;
+import com.dyenigma.backend.util.StringUtil;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.Logical;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -42,22 +43,21 @@ public class UserController {
     /**
      * 查询用户列表
      *
-     * @param request
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 16:10
      */
     @RequiresPermissions("user:list")
     @GetMapping("/userList")
-    public ResponseData userList(HttpServletRequest request) throws GlobalException {
+    public ResponseData userList() {
         List<SysUser> userList = sysUserService.selectAll();
         return ResponseData.success(userList);
     }
 
     /**
-     * 添加用户
+     * 添加用户,同时分配角色,注意必须有默认角色
      *
-     * @param requestJson
+     * @param requestJson 请求的格式为JSONObject
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 16:11
@@ -65,17 +65,32 @@ public class UserController {
     @RequiresPermissions("user:add")
     @PostMapping("/addUser")
     public ResponseData addUser(@RequestBody JSONObject requestJson) throws GlobalException {
-        JsonUtil.hasAllRequired(requestJson, "username, password, nickname,   roleId");
+        JsonUtil.hasAllRequired(requestJson, "userName,password,realName,roleId");
+
+        String account = requestJson.getString("userName");
+        String password = requestJson.getString("password");
+        String userName = requestJson.getString("realName");
+
+        String roleStr = requestJson.getString("roleId");
+        String[] roleIds = roleStr.split("\\|");
+
         SysUser sysUser = new SysUser();
-        //TODO 实例化用户
-        sysUserService.insert(sysUser);
+        String userId = StringUtil.getUUID();
+        sysUser.setUserId(userId);
+        sysUser.setUserName(userName);
+        sysUser.setAccount(account);
+        sysUser.setPassword(StringUtil.encryptPassword(password, account));
+
+        BaseDomain.createLog(sysUser);
+
+        sysUserService.insert(sysUser, roleIds);
+
         return ResponseData.success();
     }
 
     /**
      * 更新用户
      *
-     * @param requestJson
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 16:11
@@ -83,12 +98,20 @@ public class UserController {
     @RequiresPermissions("user:update")
     @PostMapping("/updateUser")
     public ResponseData updateUser(@RequestBody JSONObject requestJson) throws GlobalException {
-        JsonUtil.hasAllRequired(requestJson, " nickname,   roleId, deleteStatus, userId");
+        JsonUtil.hasAllRequired(requestJson, "realName,roleId,status,userId");
 
-        SysUser sysUser = sysUserService.selectByPrimaryKey("");
+        String userId = requestJson.getString("userId");
+        String userName = requestJson.getString("realName");
+        String roleStr = requestJson.getString("roleId");
+        String status = requestJson.getString("status");
+        String[] roleIds = roleStr.split("\\|");
 
-        sysUser.setIsOnline(1);
-        sysUserService.updateByPrimaryKey(sysUser);
+        SysUser sysUser = sysUserService.selectByPrimaryKey(userId);
+        sysUser.setUserName(userName);
+        sysUser.setStatus(status);
+
+        sysUserService.update(sysUser, roleIds);
+
         return ResponseData.success();
     }
 

@@ -46,7 +46,6 @@ public class LoginController {
     /**
      * 登录验证
      *
-     * @param requestJson
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 14:22
@@ -54,11 +53,11 @@ public class LoginController {
     @ApiOperation(value = "用户登陆方法", notes = "详细说明文档")
     @PostMapping("/login")
     public ResponseData authLogin(@ApiParam(name = "requestJson",
-            value = "格式为{\"username\": \"admin\"," + "\"password\": \"admin\"}", required = true)
+            value = "格式为{\"userName\": \"admin\"," + "\"password\": \"admin\"}", required = true)
                                   @RequestBody JSONObject requestJson) throws GlobalException {
-        JsonUtil.hasAllRequired(requestJson, "username,password");
+        JsonUtil.hasAllRequired(requestJson, "userName,password");
 
-        String account = requestJson.getString("username");
+        String account = requestJson.getString("userName");
         String password = requestJson.getString("password");
 
         Subject currentUser = SecurityUtils.getSubject();

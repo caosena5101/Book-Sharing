@@ -77,7 +77,7 @@ public class ShiroConfigure {
     /**
      * Shiro的Web过滤器Factory 命名:shiroFilter
      *
-     * @param securityManager
+     * @param securityManager 安全管理器
      * @return org.apache.shiro.spring.web.ShiroFilterFactoryBean
      * @author dingdongliang
      * @date 2018/4/18 14:27
@@ -99,6 +99,12 @@ public class ShiroConfigure {
         filterChainMap.put("/", "anon");
         filterChainMap.put("/login", "anon");
         filterChainMap.put("/error", "anon");
+
+        //TODO 以下专门用来测试，需要去掉
+        filterChainMap.put("/getCurrentInfo", "anon");
+        filterChainMap.put("/user/addUser", "anon");
+        filterChainMap.put("/user/updateUser", "anon");
+        filterChainMap.put("/user/userList", "anon");
 
         //有关swagger2的配置，生产环境中注意修改
         filterChainMap.put("/v2/**", SystemConstant.VISIT_SETTING);
@@ -143,7 +149,7 @@ public class ShiroConfigure {
      * @author dingdongliang
      * @date 2018/4/18 14:28
      */
-    public KickoutSessionControlFilter kickoutSessionControlFilter() {
+    private KickoutSessionControlFilter kickoutSessionControlFilter() {
         KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
 
         kickoutSessionControlFilter.setCacheManager(getEhCacheManager());
@@ -205,7 +211,7 @@ public class ShiroConfigure {
     /**
      * 开启shiro aop注解支持.必须设置生命周期处理器
      *
-     * @param securityManager
+     * @param securityManager 安全管理器
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
      * @author dingdongliang
      * @date 2018/4/18 14:28

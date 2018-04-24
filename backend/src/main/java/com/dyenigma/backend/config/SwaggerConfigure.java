@@ -27,7 +27,7 @@ public class SwaggerConfigure {
     public Docket swagger() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("dyenigma")
-                .apiInfo(new ApiInfoBuilder().title("P2P图书馆 API").version("1.0.0").build())
+                .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.dyenigma.backend.controller"))
                 .build()

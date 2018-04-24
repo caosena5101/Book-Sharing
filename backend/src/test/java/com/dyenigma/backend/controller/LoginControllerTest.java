@@ -1,6 +1,7 @@
 package com.dyenigma.backend.controller;
 
 import com.dyenigma.backend.BackendApplicationTests;
+import com.dyenigma.backend.entity.SysPermission;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.Resource;
 import javax.servlet.Filter;
+
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,12 +40,22 @@ public class LoginControllerTest extends BackendApplicationTests {
 
     @Test
     public void authLoginTest() throws Exception {
-        String loginInfo = "{\"username\":\"dyenigma\",\"password\":\"admin\"}";
+        String loginInfo = "{\"userName\":\"dyenigma\",\"password\":\"admin\"}";
 
         String responseString = mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON).content(loginInfo))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         log.info("--------返回的json = " + responseString);
+    }
+
+    @Test
+    public void getCurrentInfoTest() throws Exception {
+
+        String responseString = mockMvc.perform(post("/getCurrentInfo"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+
+        log.info("--------返回的json = " + responseString);
+
     }
 }

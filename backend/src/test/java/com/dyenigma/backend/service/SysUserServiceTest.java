@@ -15,10 +15,11 @@ import java.util.List;
 /**
  * backend/com.dyenigma.backend.service
  *
- * @Description :
+ * @Description : 因为涉及SecurityManager的获取，必须在controller层面测试，这里的所有测试方法作废
  * @Author : dingdongliang
  * @Date : 2018/4/13 15:52
  */
+@Deprecated
 @Slf4j
 public class SysUserServiceTest extends BackendApplicationTests {
     @Resource
@@ -32,7 +33,7 @@ public class SysUserServiceTest extends BackendApplicationTests {
         sysUser.setAccount("dyenigma");
         sysUser.setPassword(StringUtil.encryptPassword("admin", "dyenigma"));
         sysUser.setStatus("E");
-        BaseDomain.createLog(sysUser, userId);
+        BaseDomain.createLog(sysUser);
         sysUserService.insert(sysUser);
     }
 
@@ -64,7 +65,7 @@ public class SysUserServiceTest extends BackendApplicationTests {
     public void updateByPrimaryKeyTest() {
         SysUser sysUser = sysUserService.selectByPrimaryKey("9045b033e3ad42b0bf7819a228dd50ee");
         sysUser.setUserName("super man");
-        BaseDomain.editLog(sysUser, "9045b033e3ad42b0bf7819a228dd50ee");
+        BaseDomain.updateLog(sysUser);
         sysUserService.updateByPrimaryKey(sysUser);
     }
 
@@ -72,4 +73,22 @@ public class SysUserServiceTest extends BackendApplicationTests {
     public void deleteByPrimaryKeyTest() {
         sysUserService.deleteByPrimaryKey("9045b033e3ad42b0bf7819a228dd50ee");
     }
+
+    @Test
+    public void putRoleToUserTest() {
+
+        String userId = "9045b033e3ad42b0bf7819a228dd50ee";
+        String[] roleIds = {"64205b16f5d04b47aea4b091d88c243e", "8cefc3f9409348bb9677118aed62fdfb", "fb7f035401204cff8c58f240b866c925"};
+
+        sysUserService.putRoleToUser(userId, roleIds);
+    }
+
+    @Test
+    public void updateRoleToUserTest() {
+        String userId = "9045b033e3ad42b0bf7819a228dd50ee";
+        String[] roleIds = {"64205b16f5d04b47aea4b091d88c243e", "fb7f035401204cff8c58f240b866c925"};
+
+        sysUserService.updateRoleToUser(userId, roleIds);
+    }
 }
+

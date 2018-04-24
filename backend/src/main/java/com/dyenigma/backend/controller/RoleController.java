@@ -70,7 +70,6 @@ public class RoleController {
     /**
      * 新增角色
      *
-     * @param requestJson
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 16:09
@@ -87,7 +86,6 @@ public class RoleController {
     /**
      * 修改角色
      *
-     * @param requestJson
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 16:09
@@ -96,8 +94,10 @@ public class RoleController {
     @PostMapping("/updateRole")
     public ResponseData updateRole(@RequestBody JSONObject requestJson) throws GlobalException {
         JsonUtil.hasAllRequired(requestJson, "roleId,roleName,permissions");
+
         SysRole sysRole = sysRoleService.selectByPrimaryKey("");
         sysRole.setRoleDesc("");
+
         sysRoleService.updateByPrimaryKey(sysRole);
         return ResponseData.success();
     }
@@ -105,7 +105,6 @@ public class RoleController {
     /**
      * 删除角色
      *
-     * @param requestJson
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
      * @date 2018/4/18 16:09
