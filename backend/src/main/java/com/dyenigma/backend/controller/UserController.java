@@ -11,14 +11,11 @@ import com.dyenigma.backend.service.SysUserService;
 import com.dyenigma.backend.util.JsonUtil;
 import com.dyenigma.backend.util.StringUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -64,7 +61,10 @@ public class UserController {
      */
     @RequiresPermissions("user:add")
     @PostMapping("/addUser")
-    public ResponseData addUser(@RequestBody JSONObject requestJson) throws GlobalException {
+    public ResponseData addUser(@ApiParam(name = "requestJson",
+            value = "格式为{\"userName\":\"admin\",\"password\":\"admin\",\"realName\":\"good man\",\"roleId\":" +
+                    "\"64205b16f5d04b47aea4b091d88c243e|8cefc3f9409348bb9677118aed62fdfb\"}", required = true)
+                                @RequestBody JSONObject requestJson) throws GlobalException {
         JsonUtil.hasAllRequired(requestJson, "userName,password,realName,roleId");
 
         String account = requestJson.getString("userName");
@@ -97,7 +97,10 @@ public class UserController {
      */
     @RequiresPermissions("user:update")
     @PostMapping("/updateUser")
-    public ResponseData updateUser(@RequestBody JSONObject requestJson) throws GlobalException {
+    public ResponseData updateUser(@ApiParam(name = "requestJson",
+            value = "格式为{\"userId\":\"9045b033e3ad42b0bf7819a228dd50ee\",\"realName\":\"good man!\",\"roleId\":" +
+                    "\"8cefc3f9409348bb9677118aed62fdfb|fb7f035401204cff8c58f240b866c925\",\"status\":\"E\"}",
+            required = true) @RequestBody JSONObject requestJson) throws GlobalException {
         JsonUtil.hasAllRequired(requestJson, "realName,roleId,status,userId");
 
         String userId = requestJson.getString("userId");
