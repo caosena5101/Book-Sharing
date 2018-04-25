@@ -32,6 +32,14 @@ public class ResponseData {
         return success(null);
     }
 
+    public static ResponseData error() {
+        return error(false, RespCodeEnum.ILLEGAL_PARAMS.getMessage());
+    }
+
+    public static ResponseData error(Boolean status, String message) {
+        return new ResponseData(status, message);
+    }
+
     public static ResponseData success(Object data) {
         return new ResponseData(data);
     }
@@ -39,6 +47,11 @@ public class ResponseData {
     public ResponseData(Object data) {
         super();
         this.data = data;
+    }
+
+    public ResponseData(Boolean status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
     public ResponseData() {

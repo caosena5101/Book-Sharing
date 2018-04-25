@@ -157,6 +157,10 @@
         update sys_role_pmsn set  STATUS= 'I' where ROLE_ID = #{roleId,jdbcType=VARCHAR}
     </update>
 
+    <update id="deleteByPmsnId">
+        update sys_role_pmsn set  STATUS= 'I' where PMSN_ID = #{pmsnId,jdbcType=VARCHAR}
+    </update>
+
     <insert id="insertMany">
         insert into sys_role_pmsn(RP_ID,ROLE_ID,PMSN_ID,CREATED,CREATER,MODIFYER,LASTMOD,STATUS) values
         <foreach collection="pmsnIds" item="item" index="index" separator=",">

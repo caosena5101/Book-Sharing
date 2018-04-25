@@ -2,6 +2,7 @@ package com.dyenigma.backend.service.impl;
 
 import com.dyenigma.backend.constant.SystemConstant;
 import com.dyenigma.backend.dao.SysPermissionMapper;
+import com.dyenigma.backend.dao.SysRolePmsnMapper;
 import com.dyenigma.backend.entity.SysPermission;
 import com.dyenigma.backend.service.SysPermissionService;
 import com.dyenigma.backend.util.ShiroUtil;
@@ -28,6 +29,8 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
 
     @Resource
     private SysPermissionMapper sysPermissionMapper;
+    @Resource
+    private SysRolePmsnMapper sysRolePmsnMapper;
 
     /**
      * 根据用户ID查询其所拥有的所有权限
@@ -51,13 +54,28 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
      */
     @Override
     public List<SysPermission> getCurrentInfo() {
-        //从session获取用户信息
-        Session session = SecurityUtils.getSubject().getSession();
 
         String userId = ShiroUtil.getUserId();
-
         List<SysPermission> userPermission = getUserPermission(userId);
+
+        //获取session，存储用户权限信息
+        Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute(SystemConstant.SESSION_USER_PERMISSION, userPermission);
+
         return userPermission;
+    }
+
+    /**
+     * 删除权限，需要同时删除角色-权限对应表中的该权限记录
+     *
+     * @param pmsnId 权限ID
+     * @return void
+     * @author dingdongliang
+     * @date 2018/4/25 16:24
+     */
+    @Override
+    public void delete(String pmsnId) {
+        sysRolePmsnMapper.deleteByPmsnId(pmsnId);
+        sysPermissionMapper.deleteByPrimaryKey(pmsnId);
     }
 }

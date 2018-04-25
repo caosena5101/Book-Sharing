@@ -30,4 +30,14 @@ public interface SysPermissionService extends BaseService<SysPermission> {
      * @date 2018/4/23 14:50
      */
     List<SysPermission> getCurrentInfo();
+
+    /**
+     * 删除权限，需要同时删除角色-权限对应表中的该权限记录
+     *
+     * @param pmsnId 权限ID
+     * @return void
+     * @author dingdongliang
+     * @date 2018/4/25 16:24
+     */
+    void delete(String pmsnId);
 }

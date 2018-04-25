@@ -74,7 +74,7 @@ public class RoleControllerTest extends BackendApplicationTests {
     @Test
     public void getAllPmsnTest() throws Exception {
 
-        String responseString = mockMvc.perform(get("/role/getAllPmsn"))
+        String responseString = mockMvc.perform(get("/pmsn/getAllPmsn"))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         log.info("--------返回的json = " + responseString);

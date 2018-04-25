@@ -3,7 +3,6 @@ package com.dyenigma.backend.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dyenigma.backend.constant.SystemConstant;
 import com.dyenigma.backend.entity.BaseDomain;
-import com.dyenigma.backend.entity.SysPermission;
 import com.dyenigma.backend.entity.SysRole;
 import com.dyenigma.backend.exception.GlobalException;
 import com.dyenigma.backend.exception.ResponseData;
@@ -19,7 +18,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * sharing/com.dyenigma.backend.controller
@@ -54,21 +52,6 @@ public class RoleController {
         int pageNo = Integer.parseInt(requestJson.getString("pageNo"));
         PageInfo<SysRole> sysRolePageInfo = sysRoleService.selectPageByAll(pageNo, SystemConstant.PAGE_SIZE);
         return ResponseData.success(sysRolePageInfo);
-    }
-
-    /**
-     * 查询所有权限, 给角色分配权限时调用
-     *
-     * @return com.dyenigma.backend.exception.ResponseData
-     * @author dingdongliang
-     * @date 2018/4/18 16:09
-     */
-    @RequiresPermissions("role:list")
-    @GetMapping("/getAllPmsn")
-    public ResponseData getAllPmsn() {
-
-        List<SysPermission> permissionList = sysPermissionService.selectAll();
-        return ResponseData.success(permissionList);
     }
 
     /**

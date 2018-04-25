@@ -48,6 +48,16 @@ public interface SysRolePmsnMapper extends BaseMapper<SysRolePmsn> {
     void deleteByRoleId(@Param("roleId") String roleId);
 
     /**
+     * 根据权限ID，更新角色对应权限的状态，一对多的关系，单独写一个方法
+     *
+     * @param pmsnId 角色ID
+     * @return void
+     * @author dingdongliang
+     * @date 2018/4/25 16:26
+     */
+    void deleteByPmsnId(@Param("pmsnId") String pmsnId);
+
+    /**
      * 根据用户Id和角色Id查询用户角色映射对象，用来更新状态
      *
      * @param roleId 角色ID
