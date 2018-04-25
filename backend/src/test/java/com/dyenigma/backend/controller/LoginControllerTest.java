@@ -15,6 +15,7 @@ import javax.servlet.Filter;
 
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +53,7 @@ public class LoginControllerTest extends BackendApplicationTests {
     @Test
     public void getCurrentInfoTest() throws Exception {
 
-        String responseString = mockMvc.perform(post("/getCurrentInfo"))
+        String responseString = mockMvc.perform(get("/getCurrentInfo"))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         log.info("--------返回的json = " + responseString);

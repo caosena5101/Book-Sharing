@@ -4,20 +4,20 @@ import com.dyenigma.backend.dao.BaseMapper;
 import com.dyenigma.backend.service.BaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * sharing/com.dyenigma.backend.service.impl
  *
- * @Description :
+ * @Description : 通用Service实现类，注意baseMapper进行依赖注入时，必须为Autowired注解，不能为Rescource
  * @Author : dingdongliang
  * @Date : 2018/4/18 9:17
  */
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-    @Resource
+    @Autowired
     private BaseMapper<T> baseMapper;
 
     /**

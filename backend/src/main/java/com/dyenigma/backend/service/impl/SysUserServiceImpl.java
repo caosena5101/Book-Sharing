@@ -77,14 +77,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
             aList.add(sysUserRole.getRoleId());
         }
 
-        //新角色数组roleIds为B集合，取出A集合和B集合的交集 => A集合，为用户依然拥有的角色
+        //新角色数组roleIds为B集合，准备获取A集合和B集合的交集
         List<String> bList = new ArrayList<>();
         for (String str : roleIds) {
             bList.add(str);
         }
+
         //复制A集合到C集合，因为在取交集的过程中，会更改集合本身，此时C集合==A集合
         List<String> cList = new ArrayList<>(aList);
-        //此时C集合 == （A集合与B集合的交集）
+
+        //此时C集合 == （A集合与B集合的交集）为用户依然拥有的角色
         cList.retainAll(bList);
 
         //更新A集合-C集合的差集为过期的角色，更新状态为"不可用",此时A集合已经全部为过期角色了
@@ -100,7 +102,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
         //取B集合-C集合的差集为新增的角色，批量添加
         bList.removeAll(cList);
-        sysUserRoleMapper.insertMany(userId, bList);
+
+        //批量插入的时候，如果集合为空，会报错，所以要判断是否为空，而不是null
+        if (bList.size() > 0) {
+            sysUserRoleMapper.insertMany(userId, bList);
+        }
     }
 
     /**

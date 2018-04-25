@@ -105,6 +105,11 @@ public class ShiroConfigure {
         filterChainMap.put("/user/addUser", "anon");
         filterChainMap.put("/user/updateUser", "anon");
         filterChainMap.put("/user/userList", "anon");
+        filterChainMap.put("/role/roleList", "anon");
+        filterChainMap.put("/role/addRole", "anon");
+        filterChainMap.put("/role/updateRole", "anon");
+        filterChainMap.put("/role/getAllPmsn", "anon");
+        filterChainMap.put("/role/deleteRole", "anon");
 
         //有关swagger2的配置，生产环境中注意修改
         filterChainMap.put("/v2/**", SystemConstant.VISIT_SETTING);

@@ -12,6 +12,11 @@ public class SystemConstant {
     }
 
     /**
+     * 测试中使用的用户ID
+     */
+    public static final String TEST_USER_ID ="9045b033e3ad42b0bf7819a228dd50ee";
+
+    /**
      * Cookie 管理器加密使用
      */
     public static final String AES_KEY = "2AvVhdsgUs0FSA3SDFAdag==";

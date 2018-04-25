@@ -1,6 +1,7 @@
 package com.dyenigma.backend.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dyenigma.backend.constant.SystemConstant;
 import com.dyenigma.backend.entity.BaseDomain;
 import com.dyenigma.backend.entity.SysRole;
 import com.dyenigma.backend.entity.SysUser;
@@ -10,6 +11,7 @@ import com.dyenigma.backend.service.SysRoleService;
 import com.dyenigma.backend.service.SysUserService;
 import com.dyenigma.backend.util.JsonUtil;
 import com.dyenigma.backend.util.StringUtil;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +40,7 @@ public class UserController {
     private SysRoleService sysRoleService;
 
     /**
-     * 查询用户列表
+     * 查询用户列表，带分页
      *
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
@@ -46,9 +48,12 @@ public class UserController {
      */
     @RequiresPermissions("user:list")
     @GetMapping("/userList")
-    public ResponseData userList() {
-        List<SysUser> userList = sysUserService.selectAll();
-        return ResponseData.success(userList);
+    public ResponseData userList(@ApiParam(name = "requestJson", value = "格式为{\"pageNo\":\"1\"}", required = true)
+                                 @RequestBody JSONObject requestJson) throws GlobalException {
+        JsonUtil.hasAllRequired(requestJson, "pageNo");
+        int pageNo = Integer.parseInt(requestJson.getString("pageNo"));
+        PageInfo<SysUser> sysUserPageInfo = sysUserService.selectPageByAll(pageNo, SystemConstant.PAGE_SIZE);
+        return ResponseData.success(sysUserPageInfo);
     }
 
     /**
@@ -126,8 +131,8 @@ public class UserController {
      * @date 2018/4/18 16:12
      */
     @RequiresPermissions(value = {"user:add", "user:update"}, logical = Logical.OR)
-    @GetMapping("/getAllRoles")
-    public ResponseData getAllRoles() {
+    @GetMapping("/getAllRole")
+    public ResponseData getAllRole() {
         List<SysRole> list = sysRoleService.selectAll();
         return ResponseData.success(list);
     }

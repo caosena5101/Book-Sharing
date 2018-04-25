@@ -1,5 +1,6 @@
 package com.dyenigma.backend.util;
 
+import com.dyenigma.backend.constant.SystemConstant;
 import com.dyenigma.backend.entity.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -26,7 +27,12 @@ public class ShiroUtil {
     }
 
     public static String getUserId() {
-        return getUser().getUserId();
+        if (isLogin()) {
+            return getUser().getUserId();
+        } else {
+            return SystemConstant.TEST_USER_ID;
+        }
+
     }
 
     public static void setSessionAttribute(Object key, Object value) {

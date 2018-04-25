@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -113,7 +114,7 @@ public class LoginController {
      * @author dingdongliang
      * @date 2018/4/23 17:51
      */
-    @PostMapping("/getCurrentInfo")
+    @GetMapping("/getCurrentInfo")
     public ResponseData getCurrentInfo() {
         List<SysPermission> sysPermissionList = sysPermissionService.getCurrentInfo();
         return ResponseData.success(sysPermissionList);

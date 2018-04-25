@@ -29,7 +29,7 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
      * 根据用户Id和角色Id查询用户角色映射对象，用来更新状态
      *
      * @param userId 用户ID
-     * @param roleId 权限集合
+     * @param roleId 角色ID
      * @return com.dyenigma.backend.entity.SysUserRole
      * @author dingdongliang
      * @date 2018/4/24 10:08

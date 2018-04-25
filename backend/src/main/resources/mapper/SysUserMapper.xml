@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dyenigma.backend.dao.SysUserMapper">
+
     <resultMap id="BaseResultMap" type="com.dyenigma.backend.entity.SysUser">
         <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
         <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
@@ -28,32 +29,34 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      USER_ID, USER_NAME, USER_NO, JOIN_TIME, ACCOUNT, PASSWORD, USER_EMAIL, USER_PHONE,USER_ADDR, GENDER,
-      FIRST_LOGIN,PREV_LOGIN, PREV_IP, LAST_LOGIN, LOGIN_COUNT, STATUS,USER_DESC, IS_ONLINE, SORT, CREATED, LASTMOD, CREATER,
-      MODIFYER
+        USER_ID, USER_NAME, USER_NO, JOIN_TIME, ACCOUNT, PASSWORD, USER_EMAIL, USER_PHONE,USER_ADDR, GENDER,
+        FIRST_LOGIN,PREV_LOGIN, PREV_IP, LAST_LOGIN, LOGIN_COUNT, STATUS,USER_DESC, IS_ONLINE, SORT, CREATED, LASTMOD,
+        CREATER, MODIFYER
     </sql>
 
     <select id="userCertified" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from sys_user where account =#{account,jdbcType=VARCHAR}
+        from sys_user where account =#{account,jdbcType=VARCHAR} WHERE STATUS = 'E'
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from sys_user
+        from sys_user WHERE STATUS = 'E'
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List" />
         from sys_user
-        where USER_ID = #{userId,jdbcType=VARCHAR}
+        where USER_ID = #{userId,jdbcType=VARCHAR} WHERE STATUS = 'E'
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from sys_user where USER_ID = #{userId,jdbcType=VARCHAR}
-    </delete>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+        update sys_user set STATUS ='I' where USER_ID = #{userId,jdbcType=VARCHAR}
+    </update>
+
     <insert id="insert" parameterType="com.dyenigma.backend.entity.SysUser">
         insert into sys_user (USER_ID, USER_NAME, USER_NO,
         JOIN_TIME, ACCOUNT, PASSWORD,
@@ -72,6 +75,7 @@
         #{sort,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{lastmod,jdbcType=TIMESTAMP},
         #{creater,jdbcType=VARCHAR}, #{modifyer,jdbcType=VARCHAR})
     </insert>
+
     <insert id="insertSelective" parameterType="com.dyenigma.backend.entity.SysUser">
         insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -217,6 +221,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.dyenigma.backend.entity.SysUser">
         update sys_user
         <set>
@@ -289,6 +294,7 @@
         </set>
         where USER_ID = #{userId,jdbcType=VARCHAR}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.dyenigma.backend.entity.SysUser">
         update sys_user
         set USER_NAME = #{userName,jdbcType=VARCHAR},
