@@ -21,7 +21,7 @@
         select
         <include refid="Base_Column_List" />
         from sys_user_role
-        where UR_ID = #{urId,jdbcType=VARCHAR} WHERE STATUS = 'E'
+        where UR_ID = #{urId,jdbcType=VARCHAR} and STATUS = 'E'
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">

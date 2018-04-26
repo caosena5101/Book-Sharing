@@ -37,7 +37,7 @@
     <select id="userCertified" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from sys_user where account =#{account,jdbcType=VARCHAR} WHERE STATUS = 'E'
+        from sys_user where account =#{account,jdbcType=VARCHAR} and STATUS = 'E'
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
@@ -50,7 +50,7 @@
         select
         <include refid="Base_Column_List" />
         from sys_user
-        where USER_ID = #{userId,jdbcType=VARCHAR} WHERE STATUS = 'E'
+        where USER_ID = #{userId,jdbcType=VARCHAR} and STATUS = 'E'
     </select>
 
     <update id="deleteByPrimaryKey" parameterType="java.lang.String">

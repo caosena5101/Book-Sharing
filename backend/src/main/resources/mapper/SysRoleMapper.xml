@@ -22,7 +22,7 @@
         select
         <include refid="Base_Column_List" />
         from sys_role
-        where ROLE_ID = #{roleId,jdbcType=VARCHAR} WHERE STATUS = 'E'
+        where ROLE_ID = #{roleId,jdbcType=VARCHAR} and STATUS = 'E'
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">

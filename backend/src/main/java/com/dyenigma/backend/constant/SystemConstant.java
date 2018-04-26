@@ -12,9 +12,14 @@ public class SystemConstant {
     }
 
     /**
+     * 超级管理员帐号
+     */
+    public static final String SYSTEM_ADMINISTRATOR = "system";
+
+    /**
      * 测试中使用的用户ID
      */
-    public static final String TEST_USER_ID ="9045b033e3ad42b0bf7819a228dd50ee";
+    public static final String TEST_USER_ID = "9045b033e3ad42b0bf7819a228dd50ee";
 
     /**
      * Cookie 管理器加密使用
@@ -83,5 +88,10 @@ public class SystemConstant {
      * NOFLAG表示未加密，或者未发送，使用字符串常量"undo"
      */
     public static final String NOFLAG = "undo";
+
+    /**
+     * 默认密码
+     */
+    public static final String DEFAULT_PASSWORD = "111111";
 
 }

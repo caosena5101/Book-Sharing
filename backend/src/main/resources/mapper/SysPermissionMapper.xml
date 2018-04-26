@@ -30,7 +30,7 @@
         select
         <include refid="Base_Column_List" />
         from sys_permission
-        where PMSN_ID = #{pmsnId,jdbcType=VARCHAR} WHERE STATUS = 'E'
+        where PMSN_ID = #{pmsnId,jdbcType=VARCHAR} and STATUS = 'E'
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
@@ -233,7 +233,7 @@
     <select id="getUserPermission" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from sys_permission where pmsn_id in
+        from sys_permission where STATUS = 'E' and pmsn_id in
         (select pmsn_id from sys_role_pmsn where role_id in
         (select role_id from sys_user_role where user_id = #{userId,jdbcType=VARCHAR}))
     </select>
