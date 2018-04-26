@@ -86,7 +86,7 @@ public class PmsnController {
     }
 
     /**
-     * 修改权限，TODO 需要判断多个字段是否为空
+     * 修改权限
      *
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
@@ -113,12 +113,24 @@ public class PmsnController {
         //判断是否为空，然后进行更新或者直接返回
         if (sysPermission != null) {
 
-            sysPermission.setMenuCode(menuCode);
-            sysPermission.setMenuName(menuName);
-            sysPermission.setPmsnCode(pmsnCode);
-            sysPermission.setPmsnName(pmsnName);
-            sysPermission.setPmsnType(pmsnType);
-            sysPermission.setStatus(status);
+            if (menuCode != null) {
+                sysPermission.setMenuCode(menuCode);
+            }
+            if (menuName != null) {
+                sysPermission.setMenuName(menuName);
+            }
+            if (pmsnCode != null) {
+                sysPermission.setPmsnCode(pmsnCode);
+            }
+            if (pmsnName != null) {
+                sysPermission.setPmsnName(pmsnName);
+            }
+            if (pmsnType != null) {
+                sysPermission.setPmsnType(pmsnType);
+            }
+            if (status != null) {
+                sysPermission.setStatus(status);
+            }
 
             BaseDomain.updateLog(sysPermission);
 
