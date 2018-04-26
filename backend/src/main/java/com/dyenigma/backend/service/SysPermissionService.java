@@ -1,6 +1,7 @@
 package com.dyenigma.backend.service;
 
 import com.dyenigma.backend.entity.SysPermission;
+import com.dyenigma.backend.entity.SysUser;
 
 import java.util.List;
 
@@ -20,16 +21,16 @@ public interface SysPermissionService extends BaseService<SysPermission> {
      * @author dingdongliang
      * @date 2018/4/18 15:44
      */
-    List<SysPermission> getUserPermission(String userId);
+    List<SysPermission> getUserPmsn(String userId);
 
     /**
      * 查询当前登录用户的权限等信息
-     *
+     * @param sysUser 当前用户
      * @return java.util.List<com.dyenigma.backend.entity.SysPermission>
      * @author dingdongliang
-     * @date 2018/4/23 14:50
+     * @date 2018/4/26 17:11
      */
-    List<SysPermission> getCurrentInfo();
+    List<SysPermission> getCurrentPmsn(SysUser sysUser);
 
     /**
      * 删除权限，需要同时删除角色-权限对应表中的该权限记录

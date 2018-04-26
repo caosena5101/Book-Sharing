@@ -3,11 +3,14 @@ package com.dyenigma.backend.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.dyenigma.backend.constant.RespCodeEnum;
 import com.dyenigma.backend.entity.SysPermission;
+import com.dyenigma.backend.entity.SysUser;
 import com.dyenigma.backend.exception.ApiException;
 import com.dyenigma.backend.exception.GlobalException;
 import com.dyenigma.backend.exception.ResponseData;
 import com.dyenigma.backend.service.SysPermissionService;
+import com.dyenigma.backend.service.SysUserService;
 import com.dyenigma.backend.util.JsonUtil;
+import com.dyenigma.backend.util.ShiroUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -21,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * backend/com.dyenigma.backend.controller
@@ -35,6 +40,8 @@ import java.util.List;
 @Slf4j
 public class LoginController {
 
+    @Resource
+    private SysUserService sysUserService;
     @Resource
     private SysPermissionService sysPermissionService;
 
@@ -85,7 +92,7 @@ public class LoginController {
             throw new ApiException(RespCodeEnum.STH_ERROR);
         }
 
-        return ResponseData.success();
+        return ResponseData.success(currentUser.getPrincipal());
     }
 
     /**
@@ -114,10 +121,28 @@ public class LoginController {
      * @author dingdongliang
      * @date 2018/4/23 17:51
      */
-    @GetMapping("/getCurrentInfo")
-    public ResponseData getCurrentInfo() {
-        List<SysPermission> sysPermissionList = sysPermissionService.getCurrentInfo();
-        return ResponseData.success(sysPermissionList);
+    @GetMapping("/getCurrentPmsn")
+    public ResponseData getCurrentPmsn() {
+
+        String userId = ShiroUtil.getUserId();
+
+        SysUser sysUser = sysUserService.selectByPrimaryKey(userId);
+        sysUser.setPassword("");
+
+        List<SysPermission> sysPermissionList = sysPermissionService.getCurrentPmsn(sysUser);
+
+        Set<String> menuList = new HashSet<>();
+        Set<String> pmsnList = new HashSet<>();
+
+        for (SysPermission sysPermission : sysPermissionList) {
+            menuList.add(sysPermission.getMenuCode());
+            pmsnList.add(sysPermission.getPmsnCode());
+        }
+
+        sysUser.setMenuList(menuList);
+        sysUser.setPmsnList(pmsnList);
+
+        return ResponseData.success(sysUser);
     }
 }
 

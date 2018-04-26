@@ -1,4 +1,4 @@
-package com.dyenigma.backend.config;
+package com.dyenigma.backend.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * backend/com.dyenigma.backend.config
  *
- * @Description : 跨域请求配置
+ * @Description : 跨域请求配置，这里是多余的，前端Vue已经配置好Axios跨域
  * @Author : dingdongliang
  * @Date : 2018/4/13 15:23
  */

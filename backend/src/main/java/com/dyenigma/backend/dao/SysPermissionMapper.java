@@ -20,5 +20,5 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
      * @author dingdongliang
      * @date 2018/4/18 15:44
      */
-    List<SysPermission> getUserPermission(String userId);
+    List<SysPermission> getUserPmsn(String userId);
 }

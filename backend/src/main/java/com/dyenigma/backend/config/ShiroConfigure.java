@@ -100,8 +100,8 @@ public class ShiroConfigure {
         filterChainMap.put("/login", "anon");
         filterChainMap.put("/error", "anon");
 
-        //TODO 以下专门用来测试，需要去掉
-        filterChainMap.put("/getCurrentInfo", "anon");
+        //TODO 初步测试时使用，正式应用需要去掉
+        filterChainMap.put("/getCurrentPmsn", "anon");
         filterChainMap.put("/user/addUser", "anon");
         filterChainMap.put("/user/updateUser", "anon");
         filterChainMap.put("/user/userList", "anon");

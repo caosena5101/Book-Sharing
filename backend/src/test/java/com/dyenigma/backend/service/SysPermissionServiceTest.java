@@ -49,8 +49,8 @@ public class SysPermissionServiceTest extends BackendApplicationTests {
     }
 
     @Test
-    public void getUserPermissionTest() {
-        List<SysPermission> sysPermissionList = sysPermissionService.getUserPermission("9045b033e3ad42b0bf7819a228dd50ee");
+    public void getUserPmsnTest() {
+        List<SysPermission> sysPermissionList = sysPermissionService.getUserPmsn("9045b033e3ad42b0bf7819a228dd50ee");
         for (SysPermission sysPermission : sysPermissionList) {
             log.info(sysPermission.toString());
         }

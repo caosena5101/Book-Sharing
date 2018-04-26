@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * backend/com.dyenigma.backend.entity
@@ -52,4 +53,8 @@ public class SysUser extends BaseDomain {
     private Integer isOnline = 0;
 
     private Integer sort = 1;
+
+    private Set<String> menuList;
+
+    private Set<String> pmsnList;
 }

@@ -4,8 +4,8 @@ import com.dyenigma.backend.constant.SystemConstant;
 import com.dyenigma.backend.dao.SysPermissionMapper;
 import com.dyenigma.backend.dao.SysRolePmsnMapper;
 import com.dyenigma.backend.entity.SysPermission;
+import com.dyenigma.backend.entity.SysUser;
 import com.dyenigma.backend.service.SysPermissionService;
-import com.dyenigma.backend.util.ShiroUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -41,8 +41,8 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
      * @date 2018/4/18 15:44
      */
     @Override
-    public List<SysPermission> getUserPermission(String userId) {
-        return sysPermissionMapper.getUserPermission(userId);
+    public List<SysPermission> getUserPmsn(String userId) {
+        return sysPermissionMapper.getUserPmsn(userId);
     }
 
     /**
@@ -53,15 +53,16 @@ public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> imp
      * @date 2018/4/23 14:50
      */
     @Override
-    public List<SysPermission> getCurrentInfo() {
-
-        String userId = ShiroUtil.getUserId();
-        List<SysPermission> userPermission = getUserPermission(userId);
-
+    public List<SysPermission> getCurrentPmsn(SysUser sysUser) {
+        List<SysPermission> userPermission;
+        if (SystemConstant.SYSTEM_ADMINISTRATOR.equals(sysUser.getAccount())) {
+            userPermission = sysPermissionMapper.selectAll();
+        } else {
+            userPermission = getUserPmsn(sysUser.getUserId());
+        }
         //获取session，存储用户权限信息
         Session session = SecurityUtils.getSubject().getSession();
         session.setAttribute(SystemConstant.SESSION_USER_PERMISSION, userPermission);
-
         return userPermission;
     }
 

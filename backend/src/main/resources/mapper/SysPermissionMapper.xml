@@ -230,7 +230,7 @@
         WHERE PMSN_ID = #{pmsnId,jdbcType=VARCHAR}
     </update>
 
-    <select id="getUserPermission" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="getUserPmsn" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from sys_permission where STATUS = 'E' and pmsn_id in

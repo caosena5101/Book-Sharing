@@ -8,13 +8,14 @@ package com.dyenigma.backend.constant;
  * @Date : 2018/3/28 9:35
  */
 public class SystemConstant {
+
     private SystemConstant() {
     }
 
     /**
      * 超级管理员帐号
      */
-    public static final String SYSTEM_ADMINISTRATOR = "system";
+    public static final String SYSTEM_ADMINISTRATOR = "dyenigma";
 
     /**
      * 测试中使用的用户ID
@@ -92,6 +93,6 @@ public class SystemConstant {
     /**
      * 默认密码
      */
-    public static final String DEFAULT_PASSWORD = "111111";
+    public static final String DEFAULT_CREDENTIAL = "111111";
 
 }

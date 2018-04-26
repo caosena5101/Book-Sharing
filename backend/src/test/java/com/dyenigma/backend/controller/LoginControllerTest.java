@@ -51,9 +51,9 @@ public class LoginControllerTest extends BackendApplicationTests {
     }
 
     @Test
-    public void getCurrentInfoTest() throws Exception {
+    public void getCurrentPmsnTest() throws Exception {
 
-        String responseString = mockMvc.perform(get("/getCurrentInfo"))
+        String responseString = mockMvc.perform(get("/getCurrentPmsn"))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         log.info("--------返回的json = " + responseString);
