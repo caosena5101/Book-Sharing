@@ -27,7 +27,10 @@
                     <div class="access-user-con access-change-access-con">
                         <Col span="8">
                             <Row type="flex" justify="center" align="middle" class="access-change-access-con-row">
-                                <i-switch :value="switchValue" @on-change="changeAccess" size="large"></i-switch>
+                                <i-switch :value="switchValue" @on-change="changeAccess" size="large">
+                                    <span slot="open">开启</span>
+                                    <span slot="close">关闭</span>
+                                </i-switch>
                             </Row>
                         </Col>
                         <Col span="16" class="padding-left-10">
@@ -48,7 +51,7 @@ export default {
     name: 'access_index',
     data () {
         return {
-            accessCode: parseInt(Cookies.get('access')),
+            accessCode: Cookies.get('access'),
             switchValue: parseInt(Cookies.get('access')) === 1
         };
     },
