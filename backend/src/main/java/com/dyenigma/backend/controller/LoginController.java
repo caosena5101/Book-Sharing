@@ -92,7 +92,7 @@ public class LoginController {
             throw new ApiException(RespCodeEnum.STH_ERROR);
         }
 
-        return ResponseData.success(currentUser.getPrincipal());
+        return ResponseData.success(setUserPmsn((SysUser) currentUser.getPrincipal()));
     }
 
     /**
@@ -129,6 +129,18 @@ public class LoginController {
         SysUser sysUser = sysUserService.selectByPrimaryKey(userId);
         sysUser.setPassword("");
 
+        return ResponseData.success(setUserPmsn(sysUser));
+    }
+
+    /**
+     * 根据用户对象获取其权限
+     *
+     * @param sysUser 用户对象
+     * @return com.dyenigma.backend.entity.SysUser
+     * @author dingdongliang
+     * @date 2018/4/27 16:23
+     */
+    private SysUser setUserPmsn(SysUser sysUser) {
         List<SysPermission> sysPermissionList = sysPermissionService.getCurrentPmsn(sysUser);
 
         Set<String> menuList = new HashSet<>();
@@ -141,8 +153,7 @@ public class LoginController {
 
         sysUser.setMenuList(menuList);
         sysUser.setPmsnList(pmsnList);
-
-        return ResponseData.success(sysUser);
+        return sysUser;
     }
 }
 

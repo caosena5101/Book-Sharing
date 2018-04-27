@@ -113,6 +113,7 @@ public class ShiroConfigure {
         filterChainMap.put("/pmsn/addPmsn", "anon");
         filterChainMap.put("/pmsn/updatePmsn", "anon");
         filterChainMap.put("/pmsn/deletePmsn", "anon");
+        filterChainMap.put("/manage/index", "anon");
 
         //有关swagger2的配置，生产环境中注意修改
         filterChainMap.put("/v2/**", SystemConstant.VISIT_SETTING);
@@ -120,6 +121,8 @@ public class ShiroConfigure {
         filterChainMap.put("/swagger-ui.html", SystemConstant.VISIT_SETTING);
         filterChainMap.put("/swagger-resources/**", SystemConstant.VISIT_SETTING);
         filterChainMap.put("/webjars/**", SystemConstant.VISIT_SETTING);
+        filterChainMap.put("/css/**", SystemConstant.VISIT_SETTING);
+        filterChainMap.put("/images/**", SystemConstant.VISIT_SETTING);
 
         //数据源druid访问的控制，生产环境中注意修改
         filterChainMap.put("/druid/**", SystemConstant.VISIT_SETTING);

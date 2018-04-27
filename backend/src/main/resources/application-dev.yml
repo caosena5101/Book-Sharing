@@ -11,7 +11,7 @@ logging:
 spring:
   mail:
     host: smtp.163.com
-    username: 用户名
+    username: 账号
     password: 密码
     properties:
       mail:
