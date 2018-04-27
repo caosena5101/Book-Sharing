@@ -13,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @Getter
 public enum RespCodeEnum {
 
+    //前面是错误码,后面是错误说明
     CONTINUE("100", "Continue"),
     SWITCHING_PROTOCOL("101", "Switching Protocol"),
     PROCESSING("102", "Processing"),

@@ -66,9 +66,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 
         //新权限数组pmsnIds为B集合，准备获取A集合和B集合的交集
         List<String> bList = new ArrayList<>();
-        for (String str : pmsnIds) {
-            bList.add(str);
-        }
+        Collections.addAll(bList, pmsnIds);
 
         //复制A集合到C集合，因为在取交集的过程中，会更改集合本身，此时C集合==A集合
         List<String> cList = new ArrayList<>(aList);
@@ -91,8 +89,8 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
         //取B集合-C集合的差集为新增的角色，批量添加
         bList.removeAll(cList);
 
-        //批量插入的时候，如果集合为空，会报错，所以要判断是否为空，而不是null
-        if (bList.size() > 0) {
+        //批量插入的时候，如果集合为空，会报错，所以要判断是否为空
+        if (!bList.isEmpty()) {
             String userId = ShiroUtil.getUserId();
             sysRolePmsnMapper.insertMany(roleId, bList, userId);
         }

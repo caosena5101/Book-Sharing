@@ -14,7 +14,7 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 根据用户名和密码查询对应的用户, 用于登录认证
      *
-     * @param account
+     * @param account 账号
      * @return com.dyenigma.backend.entity.SysUser
      * @author dingdongliang
      * @date 2018/4/12 17:45
@@ -24,7 +24,7 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 给用户赋予角色，角色可以为多个
      *
-     * @param userId
+     * @param userId  用户主键
      * @param roleIds 角色ID数组
      * @return void
      * @author dingdongliang
@@ -35,8 +35,8 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 更新用户的角色
      *
-     * @param userId
-     * @param roleIds
+     * @param userId  用户主键
+     * @param roleIds 角色ID集合
      * @return void
      * @author dingdongliang
      * @date 2018/4/24 9:31
@@ -46,8 +46,8 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 新增用户，同时添加角色
      *
-     * @param sysUser
-     * @param roleIds
+     * @param sysUser 用户
+     * @param roleIds 角色ID集合
      * @return void
      * @author dingdongliang
      * @date 2018/4/24 11:13
@@ -57,8 +57,8 @@ public interface SysUserService extends BaseService<SysUser> {
     /**
      * 修改用户，同时修改用户-角色映射
      *
-     * @param sysUser
-     * @param roleIds
+     * @param sysUser 用户
+     * @param roleIds 角色ID集合
      * @return void
      * @author dingdongliang
      * @date 2018/4/24 11:13

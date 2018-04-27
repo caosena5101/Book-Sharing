@@ -53,6 +53,7 @@ dependencies {
             "org.springframework.session:spring-session-data-redis",
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-aop",
+            "org.springframework.boot:spring-boot-starter-mail",
             "org.springframework.boot:spring-boot-devtools",
             "org.springframework.boot:spring-boot-autoconfigure",
             "org.springframework.boot:spring-boot-starter-data-redis",

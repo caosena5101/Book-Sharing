@@ -94,7 +94,7 @@ public class UserController {
     }
 
     /**
-     * 更新用户
+     * 更新用户，状态全部为E
      *
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
@@ -104,19 +104,17 @@ public class UserController {
     @PostMapping("/updateUser")
     public ResponseData updateUser(@ApiParam(name = "requestJson",
             value = "格式为{\"userId\":\"9045b033e3ad42b0bf7819a228dd50ee\",\"realName\":\"good man!\",\"roleId\":" +
-                    "\"8cefc3f9409348bb9677118aed62fdfb|fb7f035401204cff8c58f240b866c925\",\"status\":\"E\"}",
+                    "\"8cefc3f9409348bb9677118aed62fdfb|fb7f035401204cff8c58f240b866c925\"}",
             required = true) @RequestBody JSONObject requestJson) throws GlobalException {
-        JsonUtil.hasAllRequired(requestJson, "realName,roleId,status,userId");
+        JsonUtil.hasAllRequired(requestJson, "realName,roleId,userId");
 
         String userId = requestJson.getString("userId");
         String userName = requestJson.getString("realName");
         String roleStr = requestJson.getString("roleId");
-        String status = requestJson.getString("status");
         String[] roleIds = roleStr.split("\\|");
 
         SysUser sysUser = sysUserService.selectByPrimaryKey(userId);
         sysUser.setUserName(userName);
-        sysUser.setStatus(status);
 
         sysUserService.update(sysUser, roleIds);
 

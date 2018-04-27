@@ -63,8 +63,8 @@ public class UserControllerTest extends BackendApplicationTests {
 
     @Test
     public void updateUserTest() throws Exception {
-        String userInfo = "{\"userId\":\"4432f5f16377486fbb8146a427ddb32e\",\"realName\":\"good man!\"," +
-                "\"roleId\":\"8cefc3f9409348bb9677118aed62fdfb|fb7f035401204cff8c58f240b866c925\",\"status\":\"E\"}";
+        String userInfo = "{\"userId\":\"4432f5f16377486fbb8146a427ddb32e\",\"realName\":\"super man\"," +
+                "\"roleId\":\"8cefc3f9409348bb9677118aed62fdfb\"}";
 
         String responseString = mockMvc.perform(post("/user/updateUser")
                 .contentType(MediaType.APPLICATION_JSON).content(userInfo))

@@ -87,7 +87,7 @@ public class RoleController {
     }
 
     /**
-     * 修改角色
+     * 修改角色，状态全部为E
      *
      * @return com.dyenigma.backend.exception.ResponseData
      * @author dingdongliang
@@ -97,19 +97,17 @@ public class RoleController {
     @PostMapping("/updateRole")
     public ResponseData updateRole(@ApiParam(name = "requestJson", value = "格式为{\"roleId\":" +
             "\"8cefc3f9409348bb9677118aed62fdfb\",\"roleName\":\"破坏者\",\"permissions\":" +
-            "\"2e0b4be914de494d99236f7d5141804a|6b12817ab5b943e1b4d4218617dd3ca3\",\"status\":\"E\"}",
+            "\"2e0b4be914de494d99236f7d5141804a|6b12817ab5b943e1b4d4218617dd3ca3\"}",
             required = true) @RequestBody JSONObject requestJson) throws GlobalException {
         JsonUtil.hasAllRequired(requestJson, "roleId,roleName,permissions");
 
         String roleId = requestJson.getString("roleId");
         String roleName = requestJson.getString("roleName");
         String pmsnStr = requestJson.getString("permissions");
-        String status = requestJson.getString("status");
         String[] pmsnIds = pmsnStr.split("\\|");
 
         SysRole sysRole = sysRoleService.selectByPrimaryKey(roleId);
         sysRole.setRoleName(roleName);
-        sysRole.setStatus(status);
 
         sysRoleService.update(sysRole, pmsnIds);
 

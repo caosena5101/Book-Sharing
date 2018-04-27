@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     /**
      * 根据用户名和密码查询对应的用户, 用于登录认证
      *
-     * @param account
+     * @param account 账号
      * @return com.dyenigma.backend.entity.SysUser
      * @author dingdongliang
      * @date 2018/4/12 17:45
@@ -48,7 +49,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     /**
      * 给用户赋予角色，角色可以为多个
      *
-     * @param userId
+     * @param userId  用户主键
      * @param roleIds 角色ID数组
      * @return void
      * @author dingdongliang
@@ -62,8 +63,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     /**
      * 更新用户的角色,首先标记该用户的所有角色为过期，然后再配置新角色
      *
-     * @param userId
-     * @param roleIds
+     * @param userId  用户主键
+     * @param roleIds 角色ID集合
      * @return void
      * @author dingdongliang
      * @date 2018/4/24 9:31
@@ -79,9 +80,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
         //新角色数组roleIds为B集合，准备获取A集合和B集合的交集
         List<String> bList = new ArrayList<>();
-        for (String str : roleIds) {
-            bList.add(str);
-        }
+        Collections.addAll(bList, roleIds);
 
         //复制A集合到C集合，因为在取交集的过程中，会更改集合本身，此时C集合==A集合
         List<String> cList = new ArrayList<>(aList);
@@ -103,8 +102,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
         //取B集合-C集合的差集为新增的角色，批量添加
         bList.removeAll(cList);
 
-        //批量插入的时候，如果集合为空，会报错，所以要判断是否为空，而不是null
-        if (bList.size() > 0) {
+        //批量插入的时候，如果集合为空，会报错，所以要判断是否为空
+        if (!bList.isEmpty()) {
             sysUserRoleMapper.insertMany(userId, bList);
         }
     }
@@ -112,8 +111,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     /**
      * 新增用户，同时添加角色
      *
-     * @param sysUser
-     * @param roleIds
+     * @param sysUser 用户对象
+     * @param roleIds 角色ID集合
      * @return void
      * @author dingdongliang
      * @date 2018/4/24 11:13
@@ -127,8 +126,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     /**
      * 修改用户，同时修改用户-角色映射
      *
-     * @param sysUser
-     * @param roleIds
+     * @param sysUser 用户对象
+     * @param roleIds 角色ID集合
      * @return void
      * @author dingdongliang
      * @date 2018/4/24 11:13
