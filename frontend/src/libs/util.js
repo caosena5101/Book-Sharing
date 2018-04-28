@@ -41,7 +41,11 @@ util.oneOf = function (ele, targetArr) {
 };
 
 util.showThisRoute = function (itAccess, currentAccess) {
-    if (typeof itAccess === 'object' && Array.isArray(itAccess)) {
+    if (Array.isArray(itAccess) && Array.isArray(currentAccess)) {
+        //求两个数据的交集
+        let intersectionSet = new Set([...new Set(itAccess)].filter(x => new Set(currentAccess).has(x)));
+        return intersectionSet.size > 0;//如果有交集则返回true
+    } else if (typeof itAccess === 'object' && Array.isArray(itAccess)) {
         return util.oneOf(currentAccess, itAccess);
     } else {
         return itAccess === currentAccess;
@@ -52,8 +56,7 @@ util.getRouterObjByName = function (routers, name) {
     if (!name || !routers || !routers.length) {
         return null;
     }
-    // debugger;
-    let routerObj = null;
+    let routerObj;
     for (let item of routers) {
         if (item.name === name) {
             return item;

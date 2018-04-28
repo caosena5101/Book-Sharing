@@ -38,7 +38,9 @@ const app = {
             state.tagsList.push(...list);
         },
         updateMenulist (state) {
-            let accessCode = parseInt(Cookies.get('access'));
+            //第一次打开登陆页，access无内容不做处理
+            if (!Cookies.get('access')) { return; }
+            let accessCode = JSON.parse(Cookies.get('access'));
             let menuList = [];
             appRouter.forEach((item, index) => {
                 if (item.access !== undefined) {
@@ -47,10 +49,10 @@ const app = {
                             menuList.push(item);
                         } else {
                             let len = menuList.push(item);
-                            let childrenArr = [];
+                            let childrenArr;
                             childrenArr = item.children.filter(child => {
                                 if (child.access !== undefined) {
-                                    if (child.access === accessCode) {
+                                    if (Util.showThisRoute(child.access, accessCode)) {
                                         return child;
                                     }
                                 } else {
@@ -65,7 +67,7 @@ const app = {
                         menuList.push(item);
                     } else {
                         let len = menuList.push(item);
-                        let childrenArr = [];
+                        let childrenArr;
                         childrenArr = item.children.filter(child => {
                             if (child.access !== undefined) {
                                 if (Util.showThisRoute(child.access, accessCode)) {
@@ -75,13 +77,9 @@ const app = {
                                 return child;
                             }
                         });
-                        if (childrenArr === undefined || childrenArr.length === 0) {
-                            menuList.splice(len - 1, 1);
-                        } else {
-                            let handledItem = JSON.parse(JSON.stringify(menuList[len - 1]));
-                            handledItem.children = childrenArr;
-                            menuList.splice(len - 1, 1, handledItem);
-                        }
+                        let handledItem = JSON.parse(JSON.stringify(menuList[len - 1]));
+                        handledItem.children = childrenArr;
+                        menuList.splice(len - 1, 1, handledItem);
                     }
                 }
             });
@@ -155,10 +153,10 @@ const app = {
                 state.pageOpenedList.splice(currentIndex + 1);
                 state.pageOpenedList.splice(1, currentIndex - 1);
             }
-            let newCachepage = state.cachePage.filter(item => {
+            state.cachePage = state.cachePage.filter(item => {
                 return item === currentName;
             });
-            state.cachePage = newCachepage;
+
             localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
         },
         setOpenedList (state) {

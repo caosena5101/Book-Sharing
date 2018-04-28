@@ -85,47 +85,30 @@ export const appRouter = [
         path: '/access',
         icon: 'key',
         name: 'access',
-        title: '权限管理',
+        title: '权限模块',
         component: Main,
         children: [
-            {path: 'index', title: '权限管理', name: 'access_index', component: () => import('@/views/access/access.vue')},
+            {path: 'index', title: '权限示例', name: 'access_index', component: () => import('@/views/access/access.vue')},
             {
                 path: 'user',
                 title: '用户管理',
                 name: 'user_list',
-                access: 'user:list',
+                access: ['user:list'],
                 component: () => import('@/views/user/user-list.vue')
             },
             {
                 path: 'role',
                 title: '角色管理',
                 name: 'role_list',
-                access: 'role:list',
+                access: ['role:list'],
                 component: () => import('@/views/role/role-list.vue')
             },
             {
                 path: 'pmsn',
                 title: '权限管理',
                 name: 'pmsn_list',
-                access: 'pmsn:list',
+                access: ['pmsn:list'],
                 component: () => import('@/views/pmsn/pmsn-list.vue')
-            }
-        ]
-    },
-    {
-        path: '/access-test',
-        icon: 'lock-combination',
-        title: '权限测试页',
-        name: 'accesstest',
-        access: 1,
-        component: Main,
-        children: [
-            {
-                path: 'index',
-                title: '权限测试页',
-                name: 'accesstest_index',
-                access: 1,
-                component: () => import('@/views/access/access-test.vue')
             }
         ]
     },
@@ -234,18 +217,6 @@ export const appRouter = [
 
         ]
     },
-    // {
-    //     path: '/charts',
-    //     icon: 'ios-analytics',
-    //     name: 'charts',
-    //     title: '图表',
-    //     component: Main,
-    //     children: [
-    //         { path: 'pie', title: '饼状图', name: 'pie', icon: 'ios-pie', component: resolve => { require('@/views/access/access.vue') },
-    //         { path: 'histogram', title: '柱状图', name: 'histogram', icon: 'stats-bars', component: resolve => { require('@/views/access/access.vue') }
-
-    //     ]
-    // },
     {
         path: '/tables',
         icon: 'ios-grid-view',
